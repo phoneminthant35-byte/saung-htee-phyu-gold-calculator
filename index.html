@@ -2,57 +2,118 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Myanmar Gold Calculator</title>
+<title>Saung Htee Phyu Gold Calculator</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f1eb;color:#25231f;font:15px Arial,sans-serif}header{background:#e9dfcc;color:#25231f;padding:25px 18px}header,main{max-width:900px;margin:auto}header{max-width:none}header p{color:#5f584d;margin-bottom:0}.wrap{max-width:900px;margin:auto}main{padding:18px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}.tabs button,.method button{border:1px solid #d8d0c2;background:white;border-radius:9px;padding:11px 14px;cursor:pointer}.tabs button.active,.method button.active{background:#e9dfcc;color:#25231f;border-color:#bda879}.card{background:white;border:1px solid #e5dfd4;border-radius:14px;padding:17px;margin-bottom:14px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.four{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.field{margin:10px 0}label{display:block;color:#706a60;font-size:12px;font-weight:bold;margin-bottom:5px}input,select{width:100%;padding:12px;border:1px solid #d8d1c6;border-radius:9px;background:white;font-size:16px;min-width:0}h1{margin:7px 0;font-size:30px}h2{font-size:18px;margin:0 0 12px}h3{font-size:14px;margin:14px 0 6px}.muted{font-size:12px;color:#777}.method{display:flex;gap:8px;flex-wrap:wrap}.method button{flex:1}.result{background:#f1e8d8;color:#25231f;border:1px solid #dfd1b7;border-radius:14px;padding:18px}.big{font-size:32px;font-weight:bold;margin:8px 0}.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:14px}.metric{background:#fffaf1;border:1px solid #e6dccb;border-radius:9px;padding:10px}.metric small{display:block;color:#706a60}.metric b{display:block;margin-top:4px;overflow-wrap:anywhere}.hidden{display:none!important}.note{background:#f8f1e4;border:1px solid #e8d8b7;padding:11px;border-radius:9px;font-size:12px;color:#69532e;margin-top:10px}.tabpane{display:none}.tabpane.active{display:block}@media(max-width:600px){.grid{grid-template-columns:1fr}.four{gap:6px}.four input{padding:10px 6px}.big{font-size:27px}}
 </style></head>
 <body>
-<header><div class="wrap"><div style="color:#8b672d;font-size:11px;letter-spacing:2px">JEWELRY & GOLDSMITHING TOOL</div><h1>Myanmar Gold Calculator</h1><p>24K base price · P-level pricing · weight conversion · gemstone deduction · additional gold profit</p></div></header>
+<header><div class="wrap"><div style="color:#8b672d;font-size:11px;letter-spacing:2px">ရွှေထည်နှင့် ရတနာလုပ်ငန်းသုံး ကိရိယာ</div><h1>Saung Htee Phyu Gold Calculator</h1><p>၁၆ ပဲရည် အခြေခံစျေးနှုန်း · ပဲရည်အလိုက် စျေးတွက်ခြင်း · အလေးချိန်ပြောင်းခြင်း · ကျောက်အလေးချိန်နှုတ်ခြင်း · လက်ခအလေးချိန်ပေါင်းခြင်း</p></div></header>
 <main>
-<div class="tabs"><button class="active" data-tab="calc">Gold calculator</button><button data-tab="convert">Weight converter</button><button data-tab="reverse">Reverse calculator</button></div>
+<div class="tabs"><button class="active" data-tab="calc">ရွှေတွက်စက်</button><button data-tab="convert">အလေးချိန်ပြောင်းစက်</button><button data-tab="reverse">စျေးနှုန်းမှ အလေးချိန်တွက်စက်</button><button data-tab="diamond">စိန်လုံးစီးတွက်စက်</button></div>
 <section id="calc" class="tabpane active">
-<div class="card"><h2>24K gold price</h2><div class="field"><label>24K / 16P price per Kyattha (MMK)</label><input id="base" type="number" value="5000000" min="0"></div></div>
+<div class="card"><h2>၁၆ ပဲရည် ရွှေစျေးနှုန်း</h2><div class="field"><label>၁၆ ပဲရည် ရွှေတစ်ကျပ်သားစျေးနှုန်း (ကျပ်)</label><input id="base" type="number" value="5000000" min="0"><p class="muted">ဤစျေးနှုန်းသည် browser ထဲတွင် သိမ်းထားမည်ဖြစ်ပြီး သင်ကိုယ်တိုင် ပြောင်းလဲသည့်အချိန်အထိ မပြောင်းလဲပါ။</p></div></div>
 <div class="grid">
-<div class="card"><h2>Gold purity level</h2><div class="field"><label>P level</label><select id="level"></select></div><label>Pricing method</label><div class="method"><button class="active" id="outside">Outside</button><button id="inside">Inside</button></div><p class="muted" id="methodFormula">Outside: 16 ÷ (16 + difference)</p></div>
-<div class="card"><h2>Total jewelry weight</h2><div class="method"><button class="active" id="grossMM">Kyat · Pel · Yway · Points</button><button id="grossGramMode">Gram</button></div>
-<div id="grossParts" class="four"><div class="field"><label>Kyat</label><input id="gk" type="number" min="0" value="0"></div><div class="field"><label>Pel</label><input id="gp" type="number" min="0" value="0"></div><div class="field"><label>Yway</label><input id="gy" type="number" min="0" value="0"></div><div class="field"><label>Points</label><input id="gpt" type="number" min="0" value="0"></div></div>
-<div id="grossGram" class="field hidden"><label>Weight (grams)</label><input id="gg" type="number" min="0" value="10" step="any"></div>
+<div class="card"><h2>ရွှေ ပဲရည်</h2><div class="field"><label>ပဲရည်</label><select id="level"></select></div><label>စျေးတွက်နည်း</label><div class="method"><button class="active" id="outside">အပြင်စပ်</button><button id="inside">အတွင်းစပ်</button></div><p class="muted" id="methodFormula">အပြင်စပ်: 16 ÷ (16 + difference)</p></div>
+<div class="card"><h2>ရွှေထည်၏ စုစုပေါင်းအလေးချိန်</h2><div class="method"><button class="active" id="grossMM">ကျပ် · ပဲ · ရွေး · ပွိုင့်</button><button id="grossGramMode">Gram</button></div>
+<div id="grossParts" class="four"><div class="field"><label>ကျပ်</label><input id="gk" type="number" min="0" value=""></div><div class="field"><label>ပဲ</label><input id="gp" type="number" min="0" value=""></div><div class="field"><label>ရွေး</label><input id="gy" type="number" min="0" value=""></div><div class="field"><label>ပွိုင့်</label><input id="gpt" type="number" min="0" value=""></div></div>
+<div id="grossGram" class="field hidden"><label>အလေးချိန် (ဂရမ်)</label><input id="gg" type="number" min="0" value="" step="any"></div>
 </div></div>
-<div class="card"><h2>Gemstone weight deduction</h2><p class="muted">Enter the stone weight in whichever unit you have. It is automatically converted to grams and deducted.</p><div class="method"><button class="active" id="gemCtMode">Carat</button><button id="gemGMode">Gram</button><button id="gemMMMode">Kyat · Pel · Yway · Points</button></div>
-<div id="gemCt" class="field"><label>Carat (ct)</label><input id="ct" type="number" min="0" value="0" step="any"></div>
-<div id="gemG" class="field hidden"><label>Gram</label><input id="gemg" type="number" min="0" value="0" step="any"></div>
-<div id="gemMM" class="four hidden"><div class="field"><label>Kyat</label><input id="sk" type="number" min="0" value="0"></div><div class="field"><label>Pel</label><input id="sp" type="number" min="0" value="0"></div><div class="field"><label>Yway</label><input id="sy" type="number" min="0" value="0"></div><div class="field"><label>Points</label><input id="spt" type="number" min="0" value="0"></div></div>
+<div class="card"><h2>ကျောက်အလေးချိန်နှုတ်ရန်</h2><p class="muted">ကျောက်အလေးချိန်ကို မိမိသိရှိထားသော ယူနစ်ဖြင့် ထည့်ပါ။ ဂရမ်သို့ အလိုအလျောက်ပြောင်းပြီး ရွှေအလေးချိန်မှ နှုတ်ပေးပါမည်။</p>
+<div class="field"><label>ကျောက်ဖိုး (ကျပ်)</label><input id="stonePrice" type="number" min="0" step="any" placeholder="ကျောက်ဖိုးထည့်ပါ"></div><div class="method"><button class="active" id="gemCtMode">ကာရက်</button><button id="gemGMode">Gram</button><button id="gemMMMode">ကျပ် · ပဲ · ရွေး · ပွိုင့်</button></div>
+<div id="gemCt" class="field"><label>ကာရက် (ct)</label><input id="ct" type="number" min="0" value="" step="any"></div>
+<div id="gemG" class="field hidden"><label>Gram</label><input id="gemg" type="number" min="0" value="" step="any"></div>
+<div id="gemMM" class="four hidden"><div class="field"><label>ကျပ်</label><input id="sk" type="number" min="0" value=""></div><div class="field"><label>ပဲ</label><input id="sp" type="number" min="0" value=""></div><div class="field"><label>ရွေး</label><input id="sy" type="number" min="0" value=""></div><div class="field"><label>ပွိုင့်</label><input id="spt" type="number" min="0" value=""></div></div>
 </div>
-<div class="card"><h2>Additional gold weight (profit)</h2><p class="muted">Add profit as extra gold weight, not cash. This is added after gemstone deduction.</p><div class="method"><button class="active" id="profitMMMode">Kyat · Pel · Yway · Points</button><button id="profitGMode">Gram</button></div>
-<div id="profitMM" class="four"><div class="field"><label>Kyat</label><input id="pk" type="number" min="0" value="0"></div><div class="field"><label>Pel</label><input id="pp" type="number" min="0" value="0"></div><div class="field"><label>Yway</label><input id="py" type="number" min="0" value="0"></div><div class="field"><label>Points</label><input id="ppt" type="number" min="0" value="0"></div></div>
-<div id="profitG" class="field hidden"><label>Additional weight (grams)</label><input id="pg" type="number" min="0" value="0" step="any"></div>
+<div class="card"><h2>လက်ခအတွက် ထပ်ပေါင်းမည့် ရွှေအလေးချိန်</h2><p class="muted">လက်ခကို ငွေသားမဟုတ်ဘဲ ရွှေအလေးချိန်ဖြင့် ထပ်ပေါင်းပါ။ ကျောက်အလေးချိန်နှုတ်ပြီးနောက် ထပ်ပေါင်းပေးပါမည်။</p><div class="method"><button class="active" id="profitMMMode">ကျပ် · ပဲ · ရွေး · ပွိုင့်</button><button id="profitGMode">Gram</button></div>
+<div id="profitMM" class="four"><div class="field"><label>ကျပ်</label><input id="pk" type="number" min="0" value=""></div><div class="field"><label>ပဲ</label><input id="pp" type="number" min="0" value=""></div><div class="field"><label>ရွေး</label><input id="py" type="number" min="0" value=""></div><div class="field"><label>ပွိုင့်</label><input id="ppt" type="number" min="0" value=""></div></div>
+<div id="profitG" class="field hidden"><label>ထပ်ပေါင်းမည့် အလေးချိန် (ဂရမ်)</label><input id="pg" type="number" min="0" value="" step="any"></div>
 </div>
-<div class="result"><div class="muted" style="color:#706a60">FINAL GOLD VALUE</div><div class="big" id="value">MMK 0</div><div id="summary" class="muted" style="color:#706a60"></div><div class="metrics">
-<div class="metric"><small>Gold price per Kyattha at selected P level</small><b id="levelPrice">—</b></div><div class="metric"><small>Total weight</small><b id="grossOut">—</b></div><div class="metric"><small>Stone weight deducted</small><b id="stoneOut">—</b></div><div class="metric"><small>Additional gold profit</small><b id="profitOut">—</b></div><div class="metric"><small>Final billable gold weight</small><b id="finalOut">—</b></div><div class="metric"><small>Selected P level / method</small><b id="levelOut">—</b></div></div></div>
+<div class="result"><div class="muted" style="color:#706a60">စုစုပေါင်းကျသင့်ငွေ (ရွှေဖိုး + ကျောက်ဖိုး)</div><div class="big" id="value">MMK 0</div><div id="summary" class="muted" style="color:#706a60"></div><div class="metrics">
+<div class="metric"><small>ရွှေဖိုး</small><b id="goldValueOut">—</b></div><div class="metric"><small>ကျောက်ဖိုး</small><b id="stonePriceOut">—</b></div>
+<div class="metric"><small>Gold price per Kyattha at selected ပဲရည်</small><b id="levelPrice">—</b></div><div class="metric"><small>ရွှေထည်စုစုပေါင်းအလေးချိန်</small><b id="grossOut">—</b></div>
+<div class="metric"><small>ကျောက်အလေးချိန် (ကျပ် · ပဲ · ရွေး · ပွိုင့်)</small><b id="stoneOut">—</b></div>
+<div class="metric"><small>ကျောက်နှုတ်ပြီး ကျန်သော ရွှေထည်အလေးချိန်</small><b id="afterStoneOut">—</b></div>
+<div class="metric"><small>လက်ခအတွက် ထပ်ပေါင်းသော အလေးချိန်</small><b id="profitOut">—</b></div>
+<div class="metric"><small>ကျောက်နှုတ်ပြီး + လက်ခပေါင်းပြီး နောက်ဆုံးအလေးချိန်</small><b id="finalOut">—</b></div><div class="metric"><small>Selected ပဲရည် / method</small><b id="levelOut">—</b></div></div></div>
 </section>
 <section id="convert" class="tabpane">
-<div class="card"><h2>Gram to Myanmar weight</h2><div class="field"><label>Grams</label><input id="fromGram" type="number" min="0" step="any" placeholder="Enter grams"></div><div class="four"><div><label>Kyat</label><b id="cKyat">—</b></div><div><label>Pel</label><b id="cPel">—</b></div><div><label>Yway</label><b id="cYway">—</b></div><div><label>Points</label><b id="cPoint">—</b></div></div></div>
-<div class="card"><h2>Myanmar weight to gram</h2><div class="four"><div class="field"><label>Kyat</label><input id="uk" type="number" min="0" value="0"></div><div class="field"><label>Pel</label><input id="up" type="number" min="0" value="0"></div><div class="field"><label>Yway</label><input id="uy" type="number" min="0" value="0"></div><div class="field"><label>Points</label><input id="upt" type="number" min="0" value="0"></div></div><div class="big" id="toGram">0 g</div></div>
-<div class="card"><h2>Carat conversion</h2><div class="grid"><div class="field"><label>Carat</label><input id="caratConv" type="number" min="0" step="any"></div><div class="field"><label>Gram</label><input id="gramConv" type="number" min="0" step="any"></div></div><p class="muted">1 carat = 0.2 gram.</p></div>
+<div class="card"><h2>ဂရမ်မှ မြန်မာ့အလေးချိန်သို့</h2><div class="field"><label>ဂရမ်</label><input id="fromGram" type="number" min="0" step="any" placeholder="Enter grams"></div><div class="four"><div><label>ကျပ်</label><b id="cKyat">—</b></div><div><label>ပဲ</label><b id="cPel">—</b></div><div><label>ရွေး</label><b id="cYway">—</b></div><div><label>ပွိုင့်</label><b id="cPoint">—</b></div></div></div>
+<div class="card"><h2>မြန်မာ့အလေးချိန်မှ ဂရမ်သို့</h2><div class="four"><div class="field"><label>ကျပ်</label><input id="uk" type="number" min="0" value=""></div><div class="field"><label>ပဲ</label><input id="up" type="number" min="0" value=""></div><div class="field"><label>ရွေး</label><input id="uy" type="number" min="0" value=""></div><div class="field"><label>ပွိုင့်</label><input id="upt" type="number" min="0" value=""></div></div><div class="big" id="toGram">0 g</div></div>
+<div class="card"><h2>ကာရက်ပြောင်းလဲခြင်း</h2><div class="grid"><div class="field"><label>ကာရက်</label><input id="caratConv" type="number" min="0" step="any"></div><div class="field"><label>Gram</label><input id="gramConv" type="number" min="0" step="any"></div></div><p class="muted">၁ ကာရက် = ၀.၂ ဂရမ်ram.</p></div>
 </section>
-<section id="reverse" class="tabpane"><div class="card"><h2>Price to weight</h2><div class="field"><label>Target price (MMK)</label><input id="target" type="number" value="1000000" min="0"></div><div class="field"><label>Gold P level</label><select id="reverseLevel"></select></div><div class="field"><label>Method</label><div class="method"><button class="active" id="rOutside">Outside</button><button id="rInside">Inside</button></div></div><div class="result"><div class="muted" style="color:#706a60">Equivalent weight</div><div class="big" id="reverseG">—</div><div id="reverseMyanmar" class="muted" style="color:#706a60"></div></div></div></section>
-<div class="note">Standards used: 1 Kyattha = 16.329325 g · 1 Kyattha = 16 Pel · 1 Pel = 8 Yway · 1 Yway = 10 Points · 1 carat = 0.2 g. Market price must be entered manually.</div>
+<section id="reverse" class="tabpane"><div class="card"><h2>စျေးနှုန်းမှ အလေးချိန်တွက်ရန်</h2><div class="field"><label>တွက်လိုသော စျေးနှုန်း (ကျပ်)</label><input id="target" type="number" value="" min="0"></div><div class="field"><label>Gold ပဲရည်</label><select id="reverseLevel"></select></div><div class="field"><label>စျေးတွက်နည်း</label><div class="method"><button class="active" id="rOutside">အပြင်စပ်</button><button id="rInside">အတွင်းစပ်</button></div></div><div class="result"><div class="muted" style="color:#706a60">ညီမျှသော အလေးချိန်</div><div class="big" id="reverseG">—</div><div id="reverseMyanmar" class="muted" style="color:#706a60"></div></div></div></section>
+
+<section id="diamond" class="tabpane">
+  <div class="card">
+    <h2>စိန်လုံးစီးတွက်စက် calculator</h2>
+    <p class="muted">သတ်မှတ်ချက် - ၁ ရတီ = ၀.၉၁ ကာရက်။ စိန်အလုံးရေနှင့် စုစုပေါင်းကာရက်အလေးချိန်ကို ထည့်ပါ။</p>
+    <div class="grid">
+      <div class="field"><label>စိန်အလုံးရေ (လုံး)</label><input id="diamondPieces" type="number" min="0" step="1" value=""></div>
+      <div class="field"><label>စိန်စုစုပေါင်းအလေးချိန် (ကာရက်)</label><input id="diamondCarats" type="number" min="0" step="any" value=""></div>
+    </div>
+    <div class="result">
+      <div class="muted" style="color:#706a60">စိန်လုံးစီး</div>
+      <div class="big" id="diamondSize">—</div>
+      <div class="muted" id="diamondExplanation" style="color:#706a60"></div>
+      <div class="metrics">
+        <div class="metric"><small>စုစုပေါင်းအလေးချိန် in ရတီ</small><b id="diamondYati">—</b></div>
+        <div class="metric"><small>တစ်လုံးပျမ်းမျှအလေးချိန်</small><b id="diamondPerPiece">—</b></div>
+      </div>
+    </div>
+    <div class="note">တွက်နည်း - လုံးစီး = (အလုံးရေ × ၀.၉၁) ÷ စုစုပေါင်းကာရက်</div>
+  </div>
+  <div class="card">
+    <h2>ပြောင်းပြန်တွက်ရန် - လိုအပ်သော စုစုပေါင်းကာရက်</h2>
+    <p class="muted">စိန်အလုံးရေနှင့် လိုချင်သော လုံးစီးကို ထည့်၍ လိုအပ်သော စုစုပေါင်းကာရက်ကို တွက်ပါ။</p>
+    <div class="grid">
+      <div class="field"><label>စိန်အလုံးရေ (လုံး)</label><input id="reverseDiamondPieces" type="number" min="0" step="1" value=""></div>
+      <div class="field"><label>လိုချင်သော လုံးစီး</label><input id="targetDiamondSize" type="number" min="0" step="any" value=""></div>
+    </div>
+    <div class="result">
+      <div class="muted" style="color:#706a60">လိုအပ်သော စုစုပေါင်းအလေးချိန်</div>
+      <div class="big" id="reverseDiamondCarats">0.546 ct</div>
+      <div class="muted" id="reverseDiamondExplanation" style="color:#706a60">6 × 0.91 ÷ 10 = 0.546 ct</div>
+    </div>
+    <div class="note">Formula: Total carats = (Number of pieces × 0.91) ÷ လိုချင်သော လုံးစီး</div>
+  </div>
+</section>
+
+<div class="note">အသုံးပြုထားသော အတိုင်းအတာများ: ၁ ကျပ်သား = ၁၆.၃၂၉၃၂၅ ဂရမ် · ၁ ကျပ်သား = ၁၆ ပဲ · ၁ ပဲ = ၈ ရွေး · ၁ ရွေး = ၁၀ ပွိုင့် · ၁ ကာရက် = ၀.၂ ဂရမ်. ရွှေစျေးနှုန်းကို ကိုယ်တိုင်ထည့်သွင်းပါ။</div>
 </main>
 <script>
-const KG=16.329325,$=id=>document.getElementById(id),num=id=>Math.max(0,Number($(id).value)||0),fmt=(x,n=5)=>Number(x).toLocaleString('en-US',{maximumFractionDigits:n}),money=x=>'MMK '+Math.round(x).toLocaleString('en-US');
+const KG=16.329325,$=id=>document.getElementById(id),num=id=>Math.max(0,Number($(id).value)||0),fmt=(x,n=5)=>Number(x).toLocaleString('en-US',{maximumFractionDigits:n}),money=x=>'ကျပ် '+Math.round(x).toLocaleString('en-US');
+
+const PRICE_KEY='shp_24k_price_persistent_v1';
+function loadSavedPrice(){
+  try{
+    const saved=localStorage.getItem(PRICE_KEY);
+    if(saved!==null && saved!=='' && Number.isFinite(Number(saved))) $('base').value=saved;
+  }catch(e){}
+}
+function savePrice(){
+  try{localStorage.setItem(PRICE_KEY,$('base').value);}catch(e){}
+}
+
 let method='outside',grossMode='mm',gemMode='ct',profitMode='mm',reverseMethod='outside';
 function mmToG(k,p,y,pt){return (k+p/16+y/128+pt/1280)*KG}
-function weightParts(grams){let pts=grams/KG*1280;let k=Math.floor(pts/1280);pts-=k*1280;let p=Math.floor(pts/80);pts-=p*80;let y=Math.floor(pts/10);pts-=y*10;return `${k} Kyat ${p} Pel ${y} Yway ${fmt(pts,3)} Points`}
+function weightParts(grams){let pts=grams/KG*1280;let k=Math.floor(pts/1280);pts-=k*1280;let p=Math.floor(pts/80);pts-=p*80;let y=Math.floor(pts/10);pts-=y*10;return `${k} ကျပ် ${p} ပဲ ${y} ရွေး ${fmt(pts,3)} ပွိုင့်`}
 function ratio(level,m){let d=16-level;return m==='outside'?16/(16+d):level/(level+d)}
-function levelList(id){for(let i=2;i<=32;i++){let v=i/2,o=document.createElement('option');o.value=v;o.textContent=v+'P';if(v===12.5)o.selected=true;$(id).append(o)}}
+function levelList(id){for(let i=2;i<=32;i++){let v=i/2,o=document.createElement('option');o.value=v;o.textContent=v+' ပဲရည်';if(v===12.5)o.selected=true;$(id).append(o)}}
 levelList('level');levelList('reverseLevel');
 function setMode(buttons,active){buttons.forEach(id=>$(id).classList.toggle('active',id===active))}
 function grossG(){return grossMode==='gram'?num('gg'):mmToG(num('gk'),num('gp'),num('gy'),num('gpt'))}
 function stoneG(){return gemMode==='ct'?num('ct')*.2:gemMode==='gram'?num('gemg'):mmToG(num('sk'),num('sp'),num('sy'),num('spt'))}
 function profitG(){return profitMode==='gram'?num('pg'):mmToG(num('pk'),num('pp'),num('py'),num('ppt'))}
-function calc(){let base=num('base'),level=Number($('level').value),r=ratio(level,method),rate=base*r,g=grossG(),stone=stoneG(),profit=profitG(),after=Math.max(0,g-stone),bill=after+profit,val=rate*bill/KG;
-$('value').textContent=money(val);$('summary').textContent=`${fmt(g)} g gross − ${fmt(stone)} g stones + ${fmt(profit)} g profit = ${fmt(bill)} g billable weight`;
-$('levelPrice').textContent=money(rate);$('grossOut').textContent=fmt(g)+' g';$('stoneOut').textContent='− '+fmt(stone)+' g';$('profitOut').textContent='+ '+fmt(profit)+' g';$('finalOut').textContent=fmt(bill)+' g · '+weightParts(bill);$('levelOut').textContent=level+'P · '+method[0].toUpperCase()+method.slice(1);
+function calc(){let base=num('base'),level=Number($('level').value),r=ratio(level,method),rate=base*r,g=grossG(),stone=stoneG(),profit=profitG(),after=Math.max(0,g-stone),bill=after+profit,goldVal=rate*bill/KG,stonePrice=num('stonePrice'),val=goldVal+stonePrice;
+$('value').textContent=money(val);$('summary').textContent=`Gold ${money(goldVal)} + gemstone ${money(stonePrice)} = overall ${money(val)}`;
+$('goldValueOut').textContent=money(goldVal);$('stonePriceOut').textContent=money(stonePrice);
+$('levelPrice').textContent=money(rate);
+$('grossOut').textContent=fmt(g)+' g · '+weightParts(g);
+$('stoneOut').textContent=fmt(stone)+' g · '+weightParts(stone);
+$('afterStoneOut').textContent=fmt(after)+' g · '+weightParts(after);
+$('profitOut').textContent='+ '+fmt(profit)+' g · '+weightParts(profit);
+$('finalOut').textContent=fmt(bill)+' g · '+weightParts(bill);
+$('levelOut').textContent=level+'P · '+method[0].toUpperCase()+method.slice(1);
 $('methodFormula').textContent=method==='outside'?`Outside: 16 ÷ (16 + ${fmt(16-level,2)}) = ${fmt(r,6)}`:`Inside: ${fmt(level,2)} ÷ (${fmt(level,2)} + ${fmt(16-level,2)}) = ${fmt(r,6)}`;
 reverseCalc()}
 function reverseCalc(){let base=num('base'),lev=Number($('reverseLevel').value),price=num('target'),rate=base*ratio(lev,reverseMethod),g=rate?price/rate*KG:0;$('reverseG').textContent=fmt(g)+' g';$('reverseMyanmar').textContent=weightParts(g)}
@@ -69,10 +130,31 @@ $('inside').onclick=()=>{method='inside';setMode(['outside','inside'],'inside');
 $('outside').onclick=()=>{method='outside';setMode(['outside','inside'],'outside');calc()};
 $('rInside').onclick=()=>{reverseMethod='inside';setMode(['rOutside','rInside'],'rInside');reverseCalc()};
 $('rOutside').onclick=()=>{reverseMethod='outside';setMode(['rOutside','rInside'],'rOutside');reverseCalc()};
-document.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',()=>{calc();converter()}));
-document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.tabpane').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab))});
+document.querySelectorAll('input').forEach(el=>el.addEventListener('input',()=>{calc();converter();diamondCalcIfReady();}));
+document.querySelectorAll('select').forEach(el=>el.addEventListener('change',()=>{calc();converter();}));
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();const target=b.dataset.tab;document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.tabpane').forEach(x=>x.classList.toggle('active',x.id===target));}));
 function converter(){let g=num('fromGram'),ky=g/KG*1280,k=Math.floor(ky/1280),p=Math.floor((ky-k*1280)/80),y=Math.floor((ky-k*1280-p*80)/10),pt=ky-k*1280-p*80-y*10;$('cKyat').textContent=k;$('cPel').textContent=p;$('cYway').textContent=y;$('cPoint').textContent=fmt(pt,4);$('toGram').textContent=fmt(mmToG(num('uk'),num('up'),num('uy'),num('upt')),6)+' g'}
 $('caratConv').oninput=()=>{$('gramConv').value=fmt(num('caratConv')*.2,6)};$('gramConv').oninput=()=>{$('caratConv').value=fmt(num('gramConv')*5,6)};
 $('reverseLevel').onchange=reverseCalc;$('target').oninput=reverseCalc;
-calc();converter();
+
+function diamondCalcIfReady(){if($('diamondPieces')) diamondCalc();}
+function diamondCalc(){
+  const pieces=Math.max(0,Number($('diamondPieces').value)||0);
+  const carats=Math.max(0,Number($('diamondCarats').value)||0);
+  const size=carats>0?(pieces*0.91)/carats:0;
+  const yati=carats/0.91;
+  const perPiece=pieces>0?carats/pieces:0;
+  $('diamondSize').textContent=carats>0&&pieces>0?fmt(size,4)+' လုံးစီး':'—';
+  $('diamondExplanation').textContent=carats>0&&pieces>0?`${fmt(pieces,0)} × 0.91 ÷ ${fmt(carats,4)} = ${fmt(size,4)} လုံးစီး`:'Enter pieces and total carats.';
+  $('diamondYati').textContent=carats>0?fmt(yati,4)+' ရတီ':'—';
+  $('diamondPerPiece').textContent=pieces>0&&carats>0?fmt(perPiece,4)+' ct':'—';
+  const rp=Math.max(0,Number($('reverseDiamondPieces').value)||0);
+  const targetSize=Math.max(0,Number($('targetDiamondSize').value)||0);
+  const required=targetSize>0?(rp*0.91)/targetSize:0;
+  $('reverseDiamondCarats').textContent=targetSize>0?fmt(required,4)+' ct':'—';
+  $('reverseDiamondExplanation').textContent=targetSize>0?`${fmt(rp,0)} × 0.91 ÷ ${fmt(targetSize,4)} = ${fmt(required,4)} ct`:'Enter a target လုံးစီး greater than zero.';
+}
+['diamondPieces','diamondCarats','reverseDiamondPieces','targetDiamondSize'].forEach(id=>$(id).addEventListener('input',diamondCalc));
+
+loadSavedPrice();$('base').addEventListener('input',savePrice);calc();converter();diamondCalc();
 </script></body></html>
