@@ -5,6 +5,12 @@
 <title>Saung Htee Phyu Gold Calculator</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f1eb;color:#25231f;font:15px Arial,sans-serif}header{background:#e9dfcc;color:#25231f;padding:25px 18px}header,main{max-width:900px;margin:auto}header{max-width:none}header p{color:#5f584d;margin-bottom:0}.wrap{max-width:900px;margin:auto}main{padding:18px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}.tabs button,.method button{border:1px solid #d8d0c2;background:white;border-radius:9px;padding:11px 14px;cursor:pointer}.tabs button.active,.method button.active{background:#e9dfcc;color:#25231f;border-color:#bda879}.card{background:white;border:1px solid #e5dfd4;border-radius:14px;padding:17px;margin-bottom:14px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.four{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.field{margin:10px 0}label{display:block;color:#706a60;font-size:12px;font-weight:bold;margin-bottom:5px}input,select{width:100%;padding:12px;border:1px solid #d8d1c6;border-radius:9px;background:white;font-size:16px;min-width:0}h1{margin:7px 0;font-size:30px}h2{font-size:18px;margin:0 0 12px}h3{font-size:14px;margin:14px 0 6px}.muted{font-size:12px;color:#777}.method{display:flex;gap:8px;flex-wrap:wrap}.method button{flex:1}.result{background:#f1e8d8;color:#25231f;border:1px solid #dfd1b7;border-radius:14px;padding:18px}.big{font-size:32px;font-weight:bold;margin:8px 0}.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:14px}.metric{background:#fffaf1;border:1px solid #e6dccb;border-radius:9px;padding:10px}.metric small{display:block;color:#706a60}.metric b{display:block;margin-top:4px;overflow-wrap:anywhere}.hidden{display:none!important}.note{background:#f8f1e4;border:1px solid #e8d8b7;padding:11px;border-radius:9px;font-size:12px;color:#69532e;margin-top:10px}.tabpane{display:none}.tabpane.active{display:block}@media(max-width:600px){.grid{grid-template-columns:1fr}.four{gap:6px}.four input{padding:10px 6px}.big{font-size:27px}}
+
+.weight-line{display:block!important;width:100%;clear:both}
+.weight-line b{display:block!important;margin-top:5px}
+.weight-line small{display:block!important;margin-top:10px}
+.gram-line{margin-bottom:8px}
+.myanmar-line{padding-top:2px}
 </style></head>
 <body>
 <header><div class="wrap"><div style="color:#8b672d;font-size:11px;letter-spacing:2px">ရွှေထည်နှင့် ရတနာလုပ်ငန်းသုံး ကိရိယာ</div><h1>Saung Htee Phyu Gold Calculator</h1><p>၁၆ ပဲရည် အခြေခံစျေးနှုန်း · ပဲရည်အလိုက် စျေးတွက်ခြင်း · အလေးချိန်ပြောင်းခြင်း · ကျောက်အလေးချိန်နှုတ်ခြင်း · လက်ခအလေးချိန်ပေါင်းခြင်း</p></div></header>
@@ -30,16 +36,16 @@
 </div>
 <div class="result"><div class="muted" style="color:#706a60">စုစုပေါင်းကျသင့်ငွေ (ရွှေဖိုး + ကျောက်ဖိုး)</div><div class="big" id="value">MMK 0</div><div id="summary" class="muted" style="color:#706a60"></div><div class="metrics">
 <div class="metric"><small>ရွှေဖိုး</small><b id="goldValueOut">—</b></div><div class="metric"><small>ကျောက်ဖိုး</small><b id="stonePriceOut">—</b></div>
-<div class="metric"><small>Gold price per Kyattha at selected ပဲရည်</small><b id="levelPrice">—</b></div><div class="metric"><small>ရွှေထည်စုစုပေါင်းအလေးချိန်</small><b id="grossOut">—</b></div>
-<div class="metric"><small>ကျောက်အလေးချိန် (ကျပ် · ပဲ · ရွေး · ပွိုင့်)</small><b id="stoneOut">—</b></div>
-<div class="metric"><small>ကျောက်နှုတ်ပြီး ကျန်သော ရွှေထည်အလေးချိန်</small><b id="afterStoneOut">—</b></div>
-<div class="metric"><small>လက်ခအတွက် ထပ်ပေါင်းသော အလေးချိန်</small><b id="profitOut">—</b></div>
-<div class="metric"><small>ကျောက်နှုတ်ပြီး + လက်ခပေါင်းပြီး နောက်ဆုံးအလေးချိန်</small><b id="finalOut">—</b></div><div class="metric"><small>Selected ပဲရည် / method</small><b id="levelOut">—</b></div></div></div>
+<div class="metric"><small>Gold price per Kyattha at selected ပဲရည်</small><b id="levelPrice">—</b></div><div class="metric"><small>ရွှေထည်စုစုပေါင်းအလေးချိန် (Gram)</small><div class="weight-line gram-line"><b id="grossGramOut">—</b></div><div class="weight-line myanmar-line"><small>ကျပ် · ပဲ · ရွေး · ပွိုင့်</small><b id="grossMyanmarOut">—</b></div></div>
+<div class="metric"><small>ကျောက်အလေးချိန် (Gram)</small><div class="weight-line gram-line"><b id="stoneGramOut">—</b></div><div class="weight-line myanmar-line"><small>ကျပ် · ပဲ · ရွေး · ပွိုင့်</small><b id="stoneMyanmarOut">—</b></div></div>
+<div class="metric"><small>ကျောက်နှုတ်ပြီး ကျန်သောအလေးချိန် (Gram)</small><div class="weight-line gram-line"><b id="afterStoneGramOut">—</b></div><div class="weight-line myanmar-line"><small>ကျပ် · ပဲ · ရွေး · ပွိုင့်</small><b id="afterStoneMyanmarOut">—</b></div></div>
+<div class="metric"><small>လက်ခအတွက် ထပ်ပေါင်းသောအလေးချိန် (Gram)</small><div class="weight-line gram-line"><b id="profitGramOut">—</b></div><div class="weight-line myanmar-line"><small>ကျပ် · ပဲ · ရွေး · ပွိုင့်</small><b id="profitMyanmarOut">—</b></div></div>
+<div class="metric"><small>နောက်ဆုံးအလေးချိန် (Gram)</small><div class="weight-line gram-line"><b id="finalGramOut">—</b></div><div class="weight-line myanmar-line"><small>ကျပ် · ပဲ · ရွေး · ပွိုင့်</small><b id="finalMyanmarOut">—</b></div></div><div class="metric"><small>Selected ပဲရည် / method</small><b id="levelOut">—</b></div></div></div>
 </section>
 <section id="convert" class="tabpane">
 <div class="card"><h2>ဂရမ်မှ မြန်မာ့အလေးချိန်သို့</h2><div class="field"><label>ဂရမ်</label><input id="fromGram" type="number" min="0" step="any" placeholder="Enter grams"></div><div class="four"><div><label>ကျပ်</label><b id="cKyat">—</b></div><div><label>ပဲ</label><b id="cPel">—</b></div><div><label>ရွေး</label><b id="cYway">—</b></div><div><label>ပွိုင့်</label><b id="cPoint">—</b></div></div></div>
 <div class="card"><h2>မြန်မာ့အလေးချိန်မှ ဂရမ်သို့</h2><div class="four"><div class="field"><label>ကျပ်</label><input id="uk" type="number" min="0" value=""></div><div class="field"><label>ပဲ</label><input id="up" type="number" min="0" value=""></div><div class="field"><label>ရွေး</label><input id="uy" type="number" min="0" value=""></div><div class="field"><label>ပွိုင့်</label><input id="upt" type="number" min="0" value=""></div></div><div class="big" id="toGram">0 g</div></div>
-<div class="card"><h2>ကာရက်ပြောင်းလဲခြင်း</h2><div class="grid"><div class="field"><label>ကာရက်</label><input id="caratConv" type="number" min="0" step="any"></div><div class="field"><label>Gram</label><input id="gramConv" type="number" min="0" step="any"></div></div><p class="muted">၁ ကာရက် = ၁ ရွေး ၅ ပွိုင့် (၁၅ ပွိုင့်)။</p></div>
+<div class="card"><h2>ကာရက်ပြောင်းလဲခြင်း</h2><div class="grid"><div class="field"><label>ကာရက်</label><input id="caratConv" type="number" min="0" step="any"></div><div class="field"><label>Gram</label><input id="gramConv" type="number" min="0" step="any"></div></div><p class="muted">၁ ကာရက် = ၀.၂ ဂရမ် · ၁ ကာရက် = ၁ ရွေး ၅ ပွိုင့်.</p></div>
 </section>
 <section id="reverse" class="tabpane"><div class="card"><h2>စျေးနှုန်းမှ အလေးချိန်တွက်ရန်</h2><div class="field"><label>တွက်လိုသော စျေးနှုန်း (ကျပ်)</label><input id="target" type="number" value="" min="0"></div><div class="field"><label>Gold ပဲရည်</label><select id="reverseLevel"></select></div><div class="field"><label>စျေးတွက်နည်း</label><div class="method"><button class="active" id="rOutside">အပြင်စပ်</button><button id="rInside">အတွင်းစပ်</button></div></div><div class="result"><div class="muted" style="color:#706a60">ညီမျှသော အလေးချိန်</div><div class="big" id="reverseG">—</div><div id="reverseMyanmar" class="muted" style="color:#706a60"></div></div></div></section>
 
@@ -78,7 +84,7 @@
   </div>
 </section>
 
-<div class="note">အသုံးပြုထားသော အတိုင်းအတာများ: ၁ ကျပ်သား = ၁၆.၃၂၉၃၂၅ ဂရမ် · ၁ ကျပ်သား = ၁၆ ပဲ · ၁ ပဲ = ၈ ရွေး · ၁ ရွေး = ၁၀ ပွိုင့် · ၁ ကာရက် = ၀.၂ ဂရမ်. ရွှေစျေးနှုန်းကို ကိုယ်တိုင်ထည့်သွင်းပါ။</div>
+<div class="note">အသုံးပြုထားသော အတိုင်းအတာများ: ၁ ကျပ်သား = ၁၆.၃၂၉၃၂၅ ဂရမ် · ၁ ကျပ်သား = ၁၆ ပဲ · ၁ ပဲ = ၈ ရွေး · ၁ ရွေး = ၁၀ ပွိုင့် · ၁ ကာရက် = ၀.၂ ဂရမ် · ၁ ကာရက် = ၁ ရွေး ၅ ပွိုင့် (လုပ်ငန်းသုံးပြောင်းလဲမှု). ရွှေစျေးနှုန်းကို ကိုယ်တိုင်ထည့်သွင်းပါ။</div>
 </main>
 <script>
 const KG=16.329325,$=id=>document.getElementById(id),num=id=>Math.max(0,Number($(id).value)||0),fmt=(x,n=5)=>Number(x).toLocaleString('en-US',{maximumFractionDigits:n}),money=x=>'ကျပ် '+Math.round(x).toLocaleString('en-US');
@@ -96,38 +102,46 @@ function savePrice(){
 
 let method='outside',grossMode='mm',gemMode='ct',profitMode='mm',reverseMethod='outside';
 function mmToG(k,p,y,pt){return (k+p/16+y/128+pt/1280)*KG}
-function weightParts(grams){
-  let pts=Math.round(grams/KG*1280);
-  let k=Math.floor(pts/1280);pts-=k*1280;
-  let p=Math.floor(pts/80);pts-=p*80;
-  let y=Math.floor(pts/10);pts-=y*10;
+function mmToPoints(k,p,y,pt){return Math.max(0,k*1280+p*80+y*10+pt)}
+function pointsToParts(total){
+  let pts=Math.max(0,Math.round(total));
+  const k=Math.floor(pts/1280);pts-=k*1280;
+  const p=Math.floor(pts/80);pts-=p*80;
+  const y=Math.floor(pts/10);pts-=y*10;
   return `${k} ကျပ် ${p} ပဲ ${y} ရွေး ${pts} ပွိုင့်`;
 }
-const POINTS_PER_CARAT=15;
-const GRAMS_PER_POINT=KG/1280;
-const GRAMS_PER_CARAT=POINTS_PER_CARAT*GRAMS_PER_POINT;
+function weightParts(grams){return pointsToParts(grams/KG*1280)}
+function caratToMyanmarParts(ct){return pointsToParts(ct*15)}
+function stoneMyanmarParts(){
+  if(gemMode==='ct') return caratToMyanmarParts(num('ct'));
+  if(gemMode==='mm') return pointsToParts(mmToPoints(num('sk'),num('sp'),num('sy'),num('spt')));
+  return weightParts(num('gemg'));
+}
 function ratio(level,m){let d=16-level;return m==='outside'?16/(16+d):level/(level+d)}
 function levelList(id){for(let i=2;i<=32;i++){let v=i/2,o=document.createElement('option');o.value=v;o.textContent=v+' ပဲရည်';if(v===12.5)o.selected=true;$(id).append(o)}}
 levelList('level');levelList('reverseLevel');
 function setMode(buttons,active){buttons.forEach(id=>$(id).classList.toggle('active',id===active))}
 function grossG(){return grossMode==='gram'?num('gg'):mmToG(num('gk'),num('gp'),num('gy'),num('gpt'))}
 function stoneG(){
-  if(gemMode==='ct') return num('ct')*GRAMS_PER_CARAT;
+  if(gemMode==='ct') return num('ct')*.2;
   if(gemMode==='gram') return num('gemg');
-  return mmToG(num('sk'),num('sp'),num('sy'),num('spt'));
+  return mmToPoints(num('sk'),num('sp'),num('sy'),num('spt'))/15*.2;
 }
 function profitG(){return profitMode==='gram'?num('pg'):mmToG(num('pk'),num('pp'),num('py'),num('ppt'))}
 function calc(){let base=num('base'),level=Number($('level').value),r=ratio(level,method),rate=base*r,g=grossG(),stone=stoneG(),profit=profitG(),after=Math.max(0,g-stone),bill=after+profit,goldVal=rate*bill/KG,stonePrice=num('stonePrice'),val=goldVal+stonePrice;
 $('value').textContent=money(val);$('summary').textContent=`Gold ${money(goldVal)} + gemstone ${money(stonePrice)} = overall ${money(val)}`;
 $('goldValueOut').textContent=money(goldVal);$('stonePriceOut').textContent=money(stonePrice);
 $('levelPrice').textContent=money(rate);
-$('grossOut').textContent=fmt(g)+' g · '+weightParts(g);
-const stoneUnit=gemMode==='ct'?`${fmt(stone/GRAMS_PER_CARAT,4)} ကာရက်`:
-      gemMode==='gram'?`${fmt(stone,4)} ဂရမ်`:`${weightParts(stone)}`;
-$('stoneOut').textContent=stoneUnit+' · '+fmt(stone,6)+' g · '+weightParts(stone);
-$('afterStoneOut').textContent=fmt(after)+' g · '+weightParts(after);
-$('profitOut').textContent='+ '+fmt(profit)+' g · '+weightParts(profit);
-$('finalOut').textContent=fmt(bill)+' g · '+weightParts(bill);
+$('grossGramOut').textContent=fmt(g)+' g';
+$('grossMyanmarOut').textContent=weightParts(g);
+$('stoneGramOut').textContent=fmt(stone)+' g';
+$('stoneMyanmarOut').textContent=stoneMyanmarParts();
+$('afterStoneGramOut').textContent=fmt(after)+' g';
+$('afterStoneMyanmarOut').textContent=weightParts(after);
+$('profitGramOut').textContent='+ '+fmt(profit)+' g';
+$('profitMyanmarOut').textContent=weightParts(profit);
+$('finalGramOut').textContent=fmt(bill)+' g';
+$('finalMyanmarOut').textContent=weightParts(bill);
 $('levelOut').textContent=level+'P · '+method[0].toUpperCase()+method.slice(1);
 $('methodFormula').textContent=method==='outside'?`Outside: 16 ÷ (16 + ${fmt(16-level,2)}) = ${fmt(r,6)}`:`Inside: ${fmt(level,2)} ÷ (${fmt(level,2)} + ${fmt(16-level,2)}) = ${fmt(r,6)}`;
 reverseCalc()}
@@ -136,27 +150,37 @@ function modeBtn(id,mode,show){$(id).onclick=()=>{show();setMode(mode.ids,id);mo
 modeBtn('outside',{ids:['outside','inside'],val:'outside',set:v=>method=v},()=>{method='outside'});modeBtn('inside',{ids:['outside','inside'],val:'inside',set:v=>method=v},()=>{method='inside'});
 modeBtn('grossMM',{ids:['grossMM','grossGramMode'],val:'mm',set:v=>grossMode=v},()=>{$('grossParts').classList.remove('hidden');$('grossGram').classList.add('hidden');grossMode='mm'});
 modeBtn('grossGramMode',{ids:['grossMM','grossGramMode'],val:'gram',set:v=>grossMode=v},()=>{$('grossParts').classList.add('hidden');$('grossGram').classList.remove('hidden');grossMode='gram'});
-function switchGemMode(nextMode){
-  const currentGrams=stoneG();
-  if(nextMode==='ct') $('ct').value=currentGrams/GRAMS_PER_CARAT ? fmt(currentGrams/GRAMS_PER_CARAT,6) : '';
-  if(nextMode==='gram') $('gemg').value=currentGrams ? fmt(currentGrams,6) : '';
-  if(nextMode==='mm'){
-    let totalPoints=Math.round(currentGrams/KG*1280);
-    const k=Math.floor(totalPoints/1280); totalPoints-=k*1280;
-    const p=Math.floor(totalPoints/80); totalPoints-=p*80;
-    const y=Math.floor(totalPoints/10); totalPoints-=y*10;
-    $('sk').value=k||''; $('sp').value=p||''; $('sy').value=y||''; $('spt').value=totalPoints||'';
+function currentStoneGrams(){
+  if(gemMode==='ct') return num('ct')*.2;
+  if(gemMode==='gram') return num('gemg');
+  return mmToG(num('sk'),num('sp'),num('sy'),num('spt'));
+}
+function currentStoneMyanmarPoints(){
+  if(gemMode==='ct') return num('ct')*15; // User's business conversion: 1 ct = 1 ရွေး 5 ပွိုင့်.
+  if(gemMode==='mm') return mmToPoints(num('sk'),num('sp'),num('sy'),num('spt'));
+  return currentStoneGrams()/.2*15;
+}
+function setGemMode(next){
+  const grams=currentStoneGrams(), points=currentStoneMyanmarPoints();
+  if(next==='ct') $('ct').value=gemMode==='mm' ? fmt(points/15,6) : fmt(grams/.2,6);
+  if(next==='gram') $('gemg').value=fmt(grams,6);
+  if(next==='mm'){
+    const parts=Math.round(points);
+    const k=Math.floor(parts/1280), rem1=parts-k*1280;
+    const p=Math.floor(rem1/80), rem2=rem1-p*80;
+    const y=Math.floor(rem2/10), pt=rem2-y*10;
+    $('sk').value=k;$('sp').value=p;$('sy').value=y;$('spt').value=pt;
   }
-  gemMode=nextMode;
-  setMode(['gemCtMode','gemGMode','gemMMMode'],nextMode==='ct'?'gemCtMode':nextMode==='gram'?'gemGMode':'gemMMMode');
-  $('gemCt').classList.toggle('hidden',nextMode!=='ct');
-  $('gemG').classList.toggle('hidden',nextMode!=='gram');
-  $('gemMM').classList.toggle('hidden',nextMode!=='mm');
+  gemMode=next;
+  $('gemCt').classList.toggle('hidden',next!=='ct');
+  $('gemG').classList.toggle('hidden',next!=='gram');
+  $('gemMM').classList.toggle('hidden',next!=='mm');
+  setMode(['gemCtMode','gemGMode','gemMMMode'],next==='ct'?'gemCtMode':next==='gram'?'gemGMode':'gemMMMode');
   calc();
 }
-$('gemCtMode').onclick=()=>switchGemMode('ct');
-$('gemGMode').onclick=()=>switchGemMode('gram');
-$('gemMMMode').onclick=()=>switchGemMode('mm');
+$('gemCtMode').onclick=()=>setGemMode('ct');
+$('gemGMode').onclick=()=>setGemMode('gram');
+$('gemMMMode').onclick=()=>setGemMode('mm');
 modeBtn('profitMMMode',{ids:['profitMMMode','profitGMode'],val:'mm',set:v=>profitMode=v},()=>{profitMode='mm';$('profitMM').classList.remove('hidden');$('profitG').classList.add('hidden')});
 modeBtn('profitGMode',{ids:['profitMMMode','profitGMode'],val:'gram',set:v=>profitMode=v},()=>{profitMode='gram';$('profitMM').classList.add('hidden');$('profitG').classList.remove('hidden')});
 $('inside').onclick=()=>{method='inside';setMode(['outside','inside'],'inside');calc()};
@@ -166,8 +190,8 @@ $('rOutside').onclick=()=>{reverseMethod='outside';setMode(['rOutside','rInside'
 document.querySelectorAll('input').forEach(el=>el.addEventListener('input',()=>{calc();converter();diamondCalcIfReady();}));
 document.querySelectorAll('select').forEach(el=>el.addEventListener('change',()=>{calc();converter();}));
 document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();const target=b.dataset.tab;document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.tabpane').forEach(x=>x.classList.toggle('active',x.id===target));}));
-function converter(){let g=num('fromGram'),ky=g/KG*1280,k=Math.floor(ky/1280),p=Math.floor((ky-k*1280)/80),y=Math.floor((ky-k*1280-p*80)/10),pt=ky-k*1280-p*80-y*10;$('cKyat').textContent=k;$('cPel').textContent=p;$('cYway').textContent=y;$('cPoint').textContent=fmt(pt,4);$('toGram').textContent=fmt(mmToG(num('uk'),num('up'),num('uy'),num('upt')),6)+' g'}
-$('caratConv').oninput=()=>{$('gramConv').value=fmt(num('caratConv')*GRAMS_PER_CARAT,6)};$('gramConv').oninput=()=>{$('caratConv').value=fmt(num('gramConv')/GRAMS_PER_CARAT,6)};
+function converter(){let g=num('fromGram'),ky=g/KG*1280,k=Math.floor(ky/1280),p=Math.floor((ky-k*1280)/80),y=Math.floor((ky-k*1280-p*80)/10),pt=ky-k*1280-p*80-y*10;$('cKyat').textContent=k;$('cPel').textContent=p;$('cYway').textContent=y;$('cPoint').textContent=Math.round(pt);$('toGram').textContent=fmt(mmToG(num('uk'),num('up'),num('uy'),num('upt')),6)+' g'}
+$('caratConv').oninput=()=>{$('gramConv').value=fmt(num('caratConv')*.2,6)};$('gramConv').oninput=()=>{$('caratConv').value=fmt(num('gramConv')*5,6)};
 $('reverseLevel').onchange=reverseCalc;$('target').oninput=reverseCalc;
 
 function diamondCalcIfReady(){if($('diamondPieces')) diamondCalc();}
