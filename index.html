@@ -126,18 +126,14 @@ function levelList(id){
     const vLabel=Number.isInteger(v)?String(v):v.toFixed(1);
     const kLabel=Number.isInteger(karat)?String(karat):karat.toFixed(2).replace(/0+$/,'').replace(/\\.$/,'');
     o.textContent=`${vLabel} ပဲရည် (${kLabel}K)`;
-    if(v===12.5)o.selected=true;
+    if(v===12)o.selected=true;
     $(id).append(o);
   }
 }
 levelList('level');levelList('reverseLevel');
 function setMode(buttons,active){buttons.forEach(id=>$(id).classList.toggle('active',id===active))}
 function grossG(){return grossMode==='gram'?num('gg'):mmToG(num('gk'),num('gp'),num('gy'),num('gpt'))}
-function stoneG(){
-  if(gemMode==='ct') return num('ct')*15/1280*KG;
-  if(gemMode==='gram') return num('gemg');
-  return mmToPoints(num('sk'),num('sp'),num('sy'),num('spt'))/1280*KG;
-}
+function stoneG(){return currentStoneGrams()}
 function profitG(){return profitMode==='gram'?num('pg'):mmToG(num('pk'),num('pp'),num('py'),num('ppt'))}
 function calc(){let base=num('base'),level=Number($('level').value),r=ratio(level,method),rate=base*r,g=grossG(),stone=stoneG(),profit=profitG(),after=Math.max(0,g-stone),bill=after+profit,goldVal=rate*bill/KG,stonePrice=num('stonePrice'),val=goldVal+stonePrice;
 $('value').textContent=money(val);$('summary').textContent=`Gold ${money(goldVal)} + gemstone ${money(stonePrice)} = overall ${money(val)}`;
@@ -161,15 +157,15 @@ function modeBtn(id,mode,show){$(id).onclick=()=>{show();setMode(mode.ids,id);mo
 modeBtn('outside',{ids:['outside','inside'],val:'outside',set:v=>method=v},()=>{method='outside'});modeBtn('inside',{ids:['outside','inside'],val:'inside',set:v=>method=v},()=>{method='inside'});
 modeBtn('grossMM',{ids:['grossMM','grossGramMode'],val:'mm',set:v=>grossMode=v},()=>{$('grossParts').classList.remove('hidden');$('grossGram').classList.add('hidden');grossMode='mm'});
 modeBtn('grossGramMode',{ids:['grossMM','grossGramMode'],val:'gram',set:v=>grossMode=v},()=>{$('grossParts').classList.add('hidden');$('grossGram').classList.remove('hidden');grossMode='gram'});
-function currentStoneGrams(){
-  if(gemMode==='ct') return num('ct')*.2;
-  if(gemMode==='gram') return num('gemg');
-  return mmToG(num('sk'),num('sp'),num('sy'),num('spt'));
-}
 function currentStoneMyanmarPoints(){
-  if(gemMode==='ct') return num('ct')*15; // User's business conversion: 1 ct = 1 ရွေး 5 ပွိုင့်.
+  if(gemMode==='ct') return num('ct')*15;
   if(gemMode==='mm') return mmToPoints(num('sk'),num('sp'),num('sy'),num('spt'));
-  return currentStoneGrams()/.2*15;
+  return num('gemg')/KG*1280;
+}
+function currentStoneGrams(){
+  if(gemMode==='ct') return num('ct')*15/1280*KG;
+  if(gemMode==='gram') return num('gemg');
+  return mmToPoints(num('sk'),num('sp'),num('sy'),num('spt'))/1280*KG;
 }
 function setGemMode(next){
   const grams=currentStoneGrams(), points=currentStoneMyanmarPoints();
