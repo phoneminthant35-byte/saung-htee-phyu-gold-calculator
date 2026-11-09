@@ -118,14 +118,25 @@ function stoneMyanmarParts(){
   return weightParts(num('gemg'));
 }
 function ratio(level,m){let d=16-level;return m==='outside'?16/(16+d):level/(level+d)}
-function levelList(id){for(let i=2;i<=32;i++){let v=i/2,o=document.createElement('option');o.value=v;o.textContent=v+' ပဲရည်';if(v===12.5)o.selected=true;$(id).append(o)}}
+function levelList(id){
+  for(let i=2;i<=32;i++){
+    const v=i/2, karat=v*1.5;
+    const o=document.createElement('option');
+    o.value=v;
+    const vLabel=Number.isInteger(v)?String(v):v.toFixed(1);
+    const kLabel=Number.isInteger(karat)?String(karat):karat.toFixed(2).replace(/0+$/,'').replace(/\\.$/,'');
+    o.textContent=`${vLabel} ပဲရည် (${kLabel}K)`;
+    if(v===12.5)o.selected=true;
+    $(id).append(o);
+  }
+}
 levelList('level');levelList('reverseLevel');
 function setMode(buttons,active){buttons.forEach(id=>$(id).classList.toggle('active',id===active))}
 function grossG(){return grossMode==='gram'?num('gg'):mmToG(num('gk'),num('gp'),num('gy'),num('gpt'))}
 function stoneG(){
-  if(gemMode==='ct') return num('ct')*.2;
+  if(gemMode==='ct') return num('ct')*15/1280*KG;
   if(gemMode==='gram') return num('gemg');
-  return mmToPoints(num('sk'),num('sp'),num('sy'),num('spt'))/15*.2;
+  return mmToPoints(num('sk'),num('sp'),num('sy'),num('spt'))/1280*KG;
 }
 function profitG(){return profitMode==='gram'?num('pg'):mmToG(num('pk'),num('pp'),num('py'),num('ppt'))}
 function calc(){let base=num('base'),level=Number($('level').value),r=ratio(level,method),rate=base*r,g=grossG(),stone=stoneG(),profit=profitG(),after=Math.max(0,g-stone),bill=after+profit,goldVal=rate*bill/KG,stonePrice=num('stonePrice'),val=goldVal+stonePrice;
@@ -162,7 +173,7 @@ function currentStoneMyanmarPoints(){
 }
 function setGemMode(next){
   const grams=currentStoneGrams(), points=currentStoneMyanmarPoints();
-  if(next==='ct') $('ct').value=gemMode==='mm' ? fmt(points/15,6) : fmt(grams/.2,6);
+  if(next==='ct') $('ct').value=fmt(points/15,6);
   if(next==='gram') $('gemg').value=fmt(grams,6);
   if(next==='mm'){
     const parts=Math.round(points);
