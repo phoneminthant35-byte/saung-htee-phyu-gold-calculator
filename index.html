@@ -98,6 +98,7 @@ body.normal-text .deposit-row .deposit-result b{font-size:18px}
 <div class="tabs"><button class="active" data-tab="calc">ရွှေတွက်စက်</button><button data-tab="convert">အလေးချိန်ပြောင်းစက်</button><button data-tab="reverse">စျေးနှုန်းမှ အလေးချိန်တွက်စက်</button><button data-tab="diamond">စိန်လုံးစီးတွက်စက်</button><button data-tab="records">မှတ်တမ်းများ</button></div>
 <section id="calc" class="tabpane active">
 <div class="card"><h2>၁၆ ပဲရည် ရွှေစျေးနှုန်း</h2><div class="field"><label>၁၆ ပဲရည် ရွှေတစ်ကျပ်သားစျေးနှုန်း (ကျပ်)</label><input id="base" type="number" value="5000000" min="0"><p class="muted">ဤစျေးနှုန်းသည် browser ထဲတွင် သိမ်းထားမည်ဖြစ်ပြီး သင်ကိုယ်တိုင် ပြောင်းလဲသည့်အချိန်အထိ မပြောင်းလဲပါ။</p></div></div>
+<div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap"><div><strong>လုပ်ဆောင်နေသောတွက်ချက်မှု</strong><div class="muted">လက်ရှိဖြည့်ထားသော အချက်အလက်များကိုသာ ရှင်းလင်းမည်။ သိမ်းထားသော History နှင့် ၁၆ ပဲရည်စျေးကို မဖျက်ပါ။</div></div><button type="button" class="secondary-action" id="clearAllFieldsBtn" style="border-color:#b75b4b;color:#8b3326">အချက်အလက်အားလုံး ရှင်းရန်</button></div>
 
 <div class="card" id="customerDeposits">
   <h2>Customer Deposit — စရန်ငွေမှ ရွှေအလေးချိန်တွက်ရန်</h2>
@@ -267,7 +268,11 @@ function setStoneRowMode(row,next){
   if(next==='gram') row.querySelector('[data-field="gram"]').value=fmt(points/1280*KG,6);
   if(next==='mm'){
     const whole=Math.round(points), k=Math.floor(whole/1280), r1=whole-k*1280, p=Math.floor(r1/80), r2=r1-p*80, y=Math.floor(r2/10), pt=r2-y*10;
-    row.querySelector('[data-field="sk"]').value=k;row.querySelector('[data-field="sp"]').value=p;row.querySelector('[data-field="sy"]').value=y;row.querySelector('[data-field="spt"]').value=pt;
+    // Keep zero-value stone weight boxes visually empty; blank inputs are treated as zero in calculations.
+    row.querySelector('[data-field="sk"]').value=k||'';
+    row.querySelector('[data-field="sp"]').value=p||'';
+    row.querySelector('[data-field="sy"]').value=y||'';
+    row.querySelector('[data-field="spt"]').value=pt||'';
   }
   calc();
 }
@@ -305,7 +310,7 @@ function levelList(id){
 levelList('level');levelList('reverseLevel');
 function setMode(buttons,active){buttons.forEach(id=>$(id).classList.toggle('active',id===active))}
 function grossG(){return grossMode==='gram'?num('gg'):mmToG(num('gk'),num('gp'),num('gy'),num('gpt'))}
-function stoneG(){return currentStoneGrams()}
+// Use the shared stone-row conversion above for all gemstone weight calculations.
 function profitG(){return profitMode==='gram'?num('pg'):mmToG(num('pk'),num('pp'),num('py'),num('ppt'))}
 function calc(){
   let base=num('base'),level=Number($('level').value),r=ratio(level,method),rate=base*r;
@@ -490,7 +495,7 @@ function saveCurrentDraft(){
       return {mode:row.dataset.mode||'ct',values};
     });
     const deposits=depositRows().map(row=>{const d={};row.querySelectorAll('[data-deposit]').forEach(el=>d[el.dataset.deposit]=el.value);return d;});
-    localStorage.setItem(DRAFT_KEY,JSON.stringify({savedAt:new Date().toISOString(),fields,stones,deposits}));
+    localStorage.setItem(DRAFT_KEY,JSON.stringify({savedAt:new Date().toISOString(),fields,stones,deposits,method,grossMode,profitMode,gemMode,reverseMethod}));
     if($('handoffStatus')) $('handoffStatus').textContent='တွက်ချက်မှုများကို ဤစက်တွင် အလိုအလျောက်သိမ်းဆည်းပြီးပါပြီ။';
   }catch(e){}
 }
@@ -499,6 +504,10 @@ function restoreCurrentDraft(){
     const draft=JSON.parse(localStorage.getItem(DRAFT_KEY)||'null');
     if(!draft)return;
     Object.entries(draft.fields||{}).forEach(([id,value])=>{const el=$(id);if(el)el.value=value;});
+    if(draft.method){method=draft.method;setMode(['outside','inside'],method==='inside'?'inside':'outside');}
+    if(draft.grossMode){grossMode=draft.grossMode;setMode(['grossMM','grossGramMode'],grossMode==='gram'?'grossGramMode':'grossMM');$('grossParts').classList.toggle('hidden',grossMode==='gram');$('grossGram').classList.toggle('hidden',grossMode!=='gram');}
+    if(draft.profitMode){profitMode=draft.profitMode;setMode(['profitMMMode','profitGMode'],profitMode==='gram'?'profitGMode':'profitMMMode');$('profitMM').classList.toggle('hidden',profitMode==='gram');$('profitG').classList.toggle('hidden',profitMode!=='gram');}
+    if(draft.reverseMethod){reverseMethod=draft.reverseMethod;setMode(['rOutside','rInside'],reverseMethod==='inside'?'rInside':'rOutside');}
     if(draft.stones && draft.stones.length){
       $('stoneList').innerHTML='';
       draft.stones.forEach(item=>{
@@ -518,6 +527,34 @@ document.addEventListener('input',saveCurrentDraft);
 document.addEventListener('change',saveCurrentDraft);
 window.addEventListener('pagehide',saveCurrentDraft);
 
+// Save mode/button changes as well as typed values, so the exact working setup returns after reload.
+document.addEventListener('click',e=>{
+  if(e.target.closest('#outside,#inside,#grossMM,#grossGramMode,#profitMMMode,#profitGMode,#rOutside,#rInside,[data-mode-btn]')){
+    setTimeout(saveCurrentDraft,0);
+  }
+});
+
+function clearAllWorkingFields(){
+  if(!confirm('လက်ရှိတွက်ချက်မှုထဲရှိ ဖြည့်ထားသောအချက်အလက်အားလုံးကို ရှင်းမလား?\n\nCalculation History, Customer Deposit History, Daily Gold Price History နှင့် လက်ရှိ ၁၆ ပဲရည်စျေးနှုန်းများကို မဖျက်ပါ။')) return;
+  // Clear all form inputs except the persistent daily 16P price.
+  document.querySelectorAll('input').forEach(el=>{if(el.id!=='base')el.value='';});
+  // Restore default selectors and calculation methods.
+  $('level').value='12'; if($('reverseLevel')) $('reverseLevel').value='12';
+  method='outside';setMode(['outside','inside'],'outside');
+  grossMode='mm';setMode(['grossMM','grossGramMode'],'grossMM');$('grossParts').classList.remove('hidden');$('grossGram').classList.add('hidden');
+  profitMode='mm';setMode(['profitMMMode','profitGMode'],'profitMMMode');$('profitMM').classList.remove('hidden');$('profitG').classList.add('hidden');
+  reverseMethod='outside';setMode(['rOutside','rInside'],'rOutside');
+  // Replace dynamic rows with one clean blank row each.
+  $('stoneList').innerHTML='';stoneCounter=0;addStoneRow();
+  $('depositList').innerHTML='';depositCounter=0;addDepositRow();
+  // Keep the new deposit row fully blank, including its date.
+  const dateInput=$('depositList').querySelector('[data-deposit="date"]');if(dateInput)dateInput.value='';
+  $('handoffStatus').textContent='လက်ရှိတွက်ချက်မှုကို ရှင်းလင်းပြီးပါပြီ။ သိမ်းထားသော History နှင့် ရွှေစျေးနှုန်းများ မပျက်ပါ။';
+  $('recordsStatus').textContent='';
+  calc();converter();reverseCalc();diamondCalc();updateDeposits();
+  saveCurrentDraft();
+}
+$('clearAllFieldsBtn').addEventListener('click',clearAllWorkingFields);
 
 // Local-only records on this device/browser.
 const CALC_HISTORY_KEY='shp_calculation_history_v1', CUSTOMER_DEPOSIT_KEY='shp_customer_deposit_history_v1', DAILY_PRICE_KEY='shp_daily_16p_price_history_v1';
