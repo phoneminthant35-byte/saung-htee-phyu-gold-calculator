@@ -42,6 +42,8 @@ h3{font-size:19px;line-height:1.35}
 label{font-size:16px;line-height:1.4;color:#514b42}
 input,select{font-size:19px;min-height:52px;padding:14px}
 button{font-size:17px;line-height:1.35;min-height:48px}
+button{cursor:pointer;pointer-events:auto;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button:disabled{cursor:not-allowed;opacity:.55}
 .tabs button,.method button{padding:13px 16px}
 .card{padding:20px;margin-bottom:17px}
 .muted,.note{font-size:15px;line-height:1.55}
@@ -93,16 +95,16 @@ body.normal-text .deposit-row .deposit-result b{font-size:18px}
 .record-item{border-top:1px solid #eee5d8;padding:12px 0;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.record-item strong{display:block}.record-actions{display:flex;gap:7px;flex-wrap:wrap}.record-actions button{border:1px solid #d8d0c2;background:#fffaf1;border-radius:8px;padding:8px 11px;cursor:pointer}.record-empty{color:#777;padding:12px 0}.record-item small{color:#777}
 </style></head>
 <body>
-<header><div class="wrap"><div style="color:#8b672d;font-size:11px;letter-spacing:2px">ရွှေထည်နှင့် ရတနာလုပ်ငန်းသုံး ကိရိယာ</div><h1>Saung Htee Phyu Gold Calculator</h1><p>၁၆ ပဲရည် အခြေခံစျေးနှုန်း · ပဲရည်အလိုက် စျေးတွက်ခြင်း · အလေးချိန်ပြောင်းခြင်း · ကျောက်အလေးချိန်နှုတ်ခြင်း · လက်ခအလေးချိန်ပေါင်းခြင်း</p><div class="text-size-control" role="group" aria-label="Text size"><span>စာလုံးအရွယ်အစား / Text size</span><button type="button" id="normalTextBtn" aria-pressed="false">ပုံမှန် / Normal</button><button type="button" id="largeTextBtn" aria-pressed="true">ကြီး / Large</button></div></div></header>
+<header><div class="wrap"><div style="color:#8b672d;font-size:11px;letter-spacing:2px">ရွှေထည်နှင့် ရတနာလုပ်ငန်းသုံး ကိရိယာ</div><h1>Saung Htee Phyu Gold Calculator</h1><div class="text-size-control" role="group" aria-label="Text size"><span>စာလုံးအရွယ်အစား / Text size</span><button type="button" id="normalTextBtn" aria-pressed="false">ပုံမှန် / Normal</button><button type="button" id="largeTextBtn" aria-pressed="true">ကြီး / Large</button></div></div></header>
 <main>
-<div class="tabs"><button class="active" data-tab="calc">ရွှေတွက်စက်</button><button data-tab="convert">အလေးချိန်ပြောင်းစက်</button><button data-tab="reverse">စျေးနှုန်းမှ အလေးချိန်တွက်စက်</button><button data-tab="diamond">စိန်လုံးစီးတွက်စက်</button><button data-tab="records">မှတ်တမ်းများ</button></div>
+<div class="tabs"><button type="button" class="active" data-tab="calc">ရွှေတွက်စက်</button><button type="button" data-tab="convert">အလေးချိန်ပြောင်းစက်</button><button type="button" data-tab="reverse">စျေးနှုန်းမှ အလေးချိန်တွက်စက်</button><button type="button" data-tab="diamond">စိန်လုံးစီးတွက်စက်</button><button type="button" data-tab="records">မှတ်တမ်းများ</button></div>
 <section id="calc" class="tabpane active">
-<div class="card"><h2>၁၆ ပဲရည် ရွှေစျေးနှုန်း</h2><div class="field"><label>၁၆ ပဲရည် ရွှေတစ်ကျပ်သားစျေးနှုန်း (ကျပ်)</label><input id="base" type="number" value="5000000" min="0"><p class="muted">ဤစျေးနှုန်းသည် browser ထဲတွင် သိမ်းထားမည်ဖြစ်ပြီး သင်ကိုယ်တိုင် ပြောင်းလဲသည့်အချိန်အထိ မပြောင်းလဲပါ။</p></div></div>
-<div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap"><div><strong>လုပ်ဆောင်နေသောတွက်ချက်မှု</strong><div class="muted">လက်ရှိဖြည့်ထားသော အချက်အလက်များကိုသာ ရှင်းလင်းမည်။ သိမ်းထားသော History နှင့် ၁၆ ပဲရည်စျေးကို မဖျက်ပါ။</div></div><button type="button" class="secondary-action" id="clearAllFieldsBtn" style="border-color:#b75b4b;color:#8b3326">အချက်အလက်အားလုံး ရှင်းရန်</button></div>
+<div class="card"><h2>၁၆ ပဲရည် ရွှေစျေးနှုန်း</h2><div class="field"><label>၁၆ ပဲရည် ရွှေတစ်ကျပ်သားစျေးနှုန်း (ကျပ်)</label><input id="base" type="number" value="5000000" min="0"></div></div>
+<div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap"><div><strong>လုပ်ဆောင်နေသောတွက်ချက်မှု</strong></div><button type="button" class="secondary-action" id="clearAllFieldsBtn" style="border-color:#b75b4b;color:#8b3326">အချက်အလက်အားလုံး ရှင်းရန်</button></div>
 
 <div class="card" id="customerDeposits">
   <h2>Customer Deposit — စရန်ငွေမှ ရွှေအလေးချိန်တွက်ရန်</h2>
-  <p class="muted">စရန်ငွေပမာဏနှင့် ပေးသွင်းသည့်နေ့၏ ၁၆ ပဲရည် ရွှေတစ်ကျပ်သားစျေးနှုန်းကိုသာ ထည့်ပါ။ App က လက်ဝတ်ရတနာ၏ ရွေးထားသော ပဲရည်နှင့် စျေးတွက်နည်းအတိုင်း အလိုအလျောက်ပြောင်းတွက်ပေးမည်။ စရန်ငွေတစ်ကြိမ်ထက်ပိုပါက ထပ်ထည့်နိုင်သည်။</p>
+  
   <div class="field"><label>Customer အမည် (Deposit History အတွက်)</label><input id="depositCustomerName" type="text" placeholder="Customer အမည်ထည့်ပါ"></div>
   <div id="depositList"></div>
   <button type="button" class="secondary-action" id="addDepositBtn">＋ စရန်ငွေ ထပ်ထည့်ရန်</button> <button type="button" class="secondary-action" id="saveCustomerDepositsBtn">Customer Deposit History သိမ်းရန်</button>
@@ -117,19 +119,19 @@ body.normal-text .deposit-row .deposit-result b{font-size:18px}
   <p class="note">မှတ်ချက် - သင်ထည့်ရမည့်စျေးနှုန်းမှာ ပေးသွင်းသည့်နေ့၏ ၁၆ ပဲရည်စျေးနှုန်းတစ်မျိုးတည်းသာ ဖြစ်သည်။ App က လက်ဝတ်ရတနာ၏ ရွေးထားသော ပဲရည်နှင့် အတွင်းစပ် / အပြင်စပ်နည်းအတိုင်း အလိုအလျောက်ပြောင်းပြီး ရရှိလာသော ရွှေအလေးချိန်ကို လက်ရှိရွှေအလေးချိန်မှ တိုက်ရိုက်နှုတ်ပေးမည်။ ကျောက်ဖိုးကို သီးခြားပေါင်းမည်။</p>
 </div>
 <div class="grid">
-<div class="card"><h2>ရွှေ ပဲရည်</h2><div class="field"><label>ပဲရည်</label><select id="level"></select></div><label>စျေးတွက်နည်း</label><div class="method"><button class="active" id="outside">အပြင်စပ်</button><button id="inside">အတွင်းစပ်</button></div><p class="muted" id="methodFormula">အပြင်စပ်: 16 ÷ (16 + difference)</p></div>
-<div class="card"><h2>ရွှေထည်၏ စုစုပေါင်းအလေးချိန်</h2><div class="method"><button class="active" id="grossMM">ကျပ် · ပဲ · ရွေး · ပွိုင့်</button><button id="grossGramMode">Gram</button></div>
+<div class="card"><h2>ရွှေ ပဲရည်</h2><div class="field"><label>ပဲရည်</label><select id="level"></select></div><label>စျေးတွက်နည်း</label><div class="method"><button type="button" class="active" id="outside">အပြင်စပ်</button><button type="button" id="inside">အတွင်းစပ်</button></div></div>
+<div class="card"><h2>ရွှေထည်၏ စုစုပေါင်းအလေးချိန်</h2><div class="method"><button type="button" class="active" id="grossMM">ကျပ် · ပဲ · ရွေး · ပွိုင့်</button><button type="button" id="grossGramMode">Gram</button></div>
 <div id="grossParts" class="four"><div class="field"><label>ကျပ်</label><input id="gk" type="number" min="0" value=""></div><div class="field"><label>ပဲ</label><input id="gp" type="number" min="0" value=""></div><div class="field"><label>ရွေး</label><input id="gy" type="number" min="0" value=""></div><div class="field"><label>ပွိုင့်</label><input id="gpt" type="number" min="0" value=""></div></div>
 <div id="grossGram" class="field hidden"><label>အလေးချိန် (ဂရမ်)</label><input id="gg" type="number" min="0" value="" step="any"></div>
 </div></div>
 <div class="card">
 <h2>ကျောက်အလေးချိန်နှုတ်ရန်</h2>
-<p class="muted">ကျောက်တစ်မျိုးချင်းစီအတွက် အလေးချိန်နှင့် ကျောက်ဖိုးထည့်ပါ။ လိုအပ်သလို အောက်တွင် + ခလုတ်ဖြင့် ထပ်ထည့်နိုင်သည်။ ကျောက်အားလုံး၏ အလေးချိန်ကို ရွှေထည်အလေးချိန်မှ စုစုပေါင်းနှုတ်ပေးမည်။</p>
+
 <div id="stoneList"></div>
 <button type="button" class="secondary-action" id="addStoneBtn">＋ ကျောက်အလေးချိန် ထပ်ထည့်ရန်</button>
 <div class="stone-total">စုစုပေါင်း ကျောက်ဖိုး: <b id="stonePriceTotal">ကျပ် 0</b></div>
 </div>
-<div class="card"><h2>လက်ခအတွက် ထပ်ပေါင်းမည့် ရွှေအလေးချိန်</h2><p class="muted">လက်ခကို ငွေသားမဟုတ်ဘဲ ရွှေအလေးချိန်ဖြင့် ထပ်ပေါင်းပါ။ ကျောက်အလေးချိန်နှုတ်ပြီးနောက် ထပ်ပေါင်းပေးပါမည်။</p><div class="method"><button class="active" id="profitMMMode">ကျပ် · ပဲ · ရွေး · ပွိုင့်</button><button id="profitGMode">Gram</button></div>
+<div class="card"><h2>လက်ခအတွက် ထပ်ပေါင်းမည့် ရွှေအလေးချိန်</h2><div class="method"><button type="button" class="active" id="profitMMMode">ကျပ် · ပဲ · ရွေး · ပွိုင့်</button><button type="button" id="profitGMode">Gram</button></div>
 <div id="profitMM" class="four"><div class="field"><label>ကျပ်</label><input id="pk" type="number" min="0" value=""></div><div class="field"><label>ပဲ</label><input id="pp" type="number" min="0" value=""></div><div class="field"><label>ရွေး</label><input id="py" type="number" min="0" value=""></div><div class="field"><label>ပွိုင့်</label><input id="ppt" type="number" min="0" value=""></div></div>
 <div id="profitG" class="field hidden"><label>ထပ်ပေါင်းမည့် အလေးချိန် (ဂရမ်)</label><input id="pg" type="number" min="0" value="" step="any"></div>
 </div>
@@ -142,25 +144,25 @@ body.normal-text .deposit-row .deposit-result b{font-size:18px}
 <div class="metric"><small>စရန်ငွေမနှုတ်မီ နောက်ဆုံးရွှေအလေးချိန် (Gram)</small><div class="weight-line gram-line"><b id="finalGramOut">—</b></div><div class="weight-line myanmar-line"><small>ကျပ် · ပဲ · ရွေး · ပွိုင့်</small><b id="finalMyanmarOut">—</b></div></div><div class="metric"><small>စရန်ငွေအဖြစ် ရွှေအလေးချိန်နှုတ်ရန် (Gram)</small><div class="weight-line gram-line"><b id="depositDeductGramOut">—</b></div><div class="weight-line myanmar-line"><small>ကျပ် · ပဲ · ရွေး · ပွိုင့်</small><b id="depositDeductMyanmarOut">—</b></div></div><div class="metric"><small>စရန်ငွေနှုတ်ပြီး ကျန်ရှိသော ရွှေအလေးချိန် (Gram)</small><div class="weight-line gram-line"><b id="netFinalGramOut">—</b></div><div class="weight-line myanmar-line"><small>ကျပ် · ပဲ · ရွေး · ပွိုင့်</small><b id="netFinalMyanmarOut">—</b></div></div><div class="metric"><small>Selected ပဲရည် / method</small><b id="levelOut">—</b></div></div></div>
 <div class="card" id="myansanHandoff">
   <h2>MyanSan POS သို့ အရောင်းအချက်အလက် ကူးယူရန်</h2>
-  <p class="muted">ဤ calculator သည် ရွှေဖိုးနှင့် ကျောက်ဖိုးကိုသာ တွက်ပေးသည်။ အရောင်းမှတ်တမ်း၊ ငွေလက်ခံမှုနှင့် stock အဝင်အထွက်ကို MyanSan POS ထဲတွင်သာ မှတ်တမ်းတင်ပါ။</p>
+  
   <div class="field"><label>Customer / Item မှတ်ချက် (ရွေးချယ်နိုင်သည်)</label><input id="handoffNote" type="text" placeholder="ဥပမာ - Customer name / ရွှေလက်စွပ်"></div>
   <button type="button" class="secondary-action" id="saveCalculationBtn" style="width:100%;margin-bottom:9px">ဤတွက်ချက်မှုကို History ထဲသိမ်းရန်</button>
   <button type="button" class="primary-action" id="copyMyanSanBtn">MyanSan POS အတွက် အချက်အလက် ကူးယူရန်</button>
   <div id="handoffStatus" class="muted" style="margin-top:10px">တွက်ချက်မှုများကို ဤစက်တွင် အလိုအလျောက်သိမ်းဆည်းထားမည်။</div>
-  <p class="muted">ကူးယူထားသော အချက်အလက်ကို MyanSan POS ၏ အရောင်းစာရင်းတွင် ကိုယ်တိုင်ထည့်ပါ။ လက်ရှိ MyanSan ၏ အများပြည်သူကြည့်ရှုနိုင်သော အချက်အလက်တွင် calculator မှ တိုက်ရိုက်ချိတ်ဆက်သည့် API ကို မတွေ့ရပါ။</p>
+  
 </div>
 </section>
 <section id="convert" class="tabpane">
 <div class="card"><h2>ဂရမ်မှ မြန်မာ့အလေးချိန်သို့</h2><div class="field"><label>ဂရမ်</label><input id="fromGram" type="number" min="0" step="any" placeholder="Enter grams"></div><div class="four"><div><label>ကျပ်</label><b id="cKyat">—</b></div><div><label>ပဲ</label><b id="cPel">—</b></div><div><label>ရွေး</label><b id="cYway">—</b></div><div><label>ပွိုင့်</label><b id="cPoint">—</b></div></div></div>
 <div class="card"><h2>မြန်မာ့အလေးချိန်မှ ဂရမ်သို့</h2><div class="four"><div class="field"><label>ကျပ်</label><input id="uk" type="number" min="0" value=""></div><div class="field"><label>ပဲ</label><input id="up" type="number" min="0" value=""></div><div class="field"><label>ရွေး</label><input id="uy" type="number" min="0" value=""></div><div class="field"><label>ပွိုင့်</label><input id="upt" type="number" min="0" value=""></div></div><div class="big" id="toGram">0 g</div></div>
-<div class="card"><h2>ကာရက်ပြောင်းလဲခြင်း</h2><div class="grid"><div class="field"><label>ကာရက်</label><input id="caratConv" type="number" min="0" step="any"></div><div class="field"><label>Gram</label><input id="gramConv" type="number" min="0" step="any"></div></div><p class="muted">ဤလုပ်ငန်းသုံးတွက်ချက်မှုတွင် ၁ ကာရက် = ၁ ရွေး ၅ ပွိုင့် (၁၅ ပွိုင့်) ဟု သတ်မှတ်ထားသည်။</p></div>
+<div class="card"><h2>ကာရက်ပြောင်းလဲခြင်း</h2><div class="grid"><div class="field"><label>ကာရက်</label><input id="caratConv" type="number" min="0" step="any"></div><div class="field"><label>Gram</label><input id="gramConv" type="number" min="0" step="any"></div></div></div>
 </section>
-<section id="reverse" class="tabpane"><div class="card"><h2>စျေးနှုန်းမှ အလေးချိန်တွက်ရန်</h2><div class="field"><label>တွက်လိုသော စျေးနှုန်း (ကျပ်)</label><input id="target" type="number" value="" min="0"></div><div class="field"><label>Gold ပဲရည်</label><select id="reverseLevel"></select></div><div class="field"><label>စျေးတွက်နည်း</label><div class="method"><button class="active" id="rOutside">အပြင်စပ်</button><button id="rInside">အတွင်းစပ်</button></div></div><div class="result"><div class="muted" style="color:#706a60">ညီမျှသော အလေးချိန်</div><div class="big" id="reverseG">—</div><div id="reverseMyanmar" class="muted" style="color:#706a60"></div></div></div></section>
+<section id="reverse" class="tabpane"><div class="card"><h2>စျေးနှုန်းမှ အလေးချိန်တွက်ရန်</h2><div class="field"><label>တွက်လိုသော စျေးနှုန်း (ကျပ်)</label><input id="target" type="number" value="" min="0"></div><div class="field"><label>Gold ပဲရည်</label><select id="reverseLevel"></select></div><div class="field"><label>စျေးတွက်နည်း</label><div class="method"><button type="button" class="active" id="rOutside">အပြင်စပ်</button><button type="button" id="rInside">အတွင်းစပ်</button></div></div><div class="result"><div class="muted" style="color:#706a60">ညီမျှသော အလေးချိန်</div><div class="big" id="reverseG">—</div><div id="reverseMyanmar" class="muted" style="color:#706a60"></div></div></div></section>
 
 <section id="diamond" class="tabpane">
   <div class="card">
     <h2>စိန်လုံးစီးတွက်စက် calculator</h2>
-    <p class="muted">သတ်မှတ်ချက် - ၁ ရတီ = ၀.၉၁ ကာရက်။ စိန်အလုံးရေနှင့် စုစုပေါင်းကာရက်အလေးချိန်ကို ထည့်ပါ။</p>
+    
     <div class="grid">
       <div class="field"><label>စိန်အလုံးရေ (လုံး)</label><input id="diamondPieces" type="number" min="0" step="1" value=""></div>
       <div class="field"><label>စိန်စုစုပေါင်းအလေးချိန် (ကာရက်)</label><input id="diamondCarats" type="number" min="0" step="any" value=""></div>
@@ -174,11 +176,11 @@ body.normal-text .deposit-row .deposit-result b{font-size:18px}
         <div class="metric"><small>တစ်လုံးပျမ်းမျှအလေးချိန်</small><b id="diamondPerPiece">—</b></div>
       </div>
     </div>
-    <div class="note">တွက်နည်း - လုံးစီး = (အလုံးရေ × ၀.၉၁) ÷ စုစုပေါင်းကာရက်</div>
+    
   </div>
   <div class="card">
     <h2>ပြောင်းပြန်တွက်ရန် - လိုအပ်သော စုစုပေါင်းကာရက်</h2>
-    <p class="muted">စိန်အလုံးရေနှင့် လိုချင်သော လုံးစီးကို ထည့်၍ လိုအပ်သော စုစုပေါင်းကာရက်ကို တွက်ပါ။</p>
+    
     <div class="grid">
       <div class="field"><label>စိန်အလုံးရေ (လုံး)</label><input id="reverseDiamondPieces" type="number" min="0" step="1" value=""></div>
       <div class="field"><label>လိုချင်သော လုံးစီး</label><input id="targetDiamondSize" type="number" min="0" step="any" value=""></div>
@@ -188,17 +190,17 @@ body.normal-text .deposit-row .deposit-result b{font-size:18px}
       <div class="big" id="reverseDiamondCarats">0.546 ct</div>
       <div class="muted" id="reverseDiamondExplanation" style="color:#706a60">6 × 0.91 ÷ 10 = 0.546 ct</div>
     </div>
-    <div class="note">Formula: Total carats = (Number of pieces × 0.91) ÷ လိုချင်သော လုံးစီး</div>
+    
   </div>
 </section>
 <section id="records" class="tabpane">
- <div class="card"><h2>Calculation History — ယခင်တွက်ချက်မှုများ</h2><p class="muted">Customer / Item အမည်ဖြင့် သိမ်းပြီး နောက်မှ ပြန်ဖွင့်နိုင်သည်။</p><div id="calculationHistoryList"></div></div>
- <div class="card"><h2>Customer Deposit History — Customer စရန်ငွေမှတ်တမ်း</h2><p class="muted">Customer အမည်ဖြင့် ရှာဖွေနိုင်သည်။ ဤမှတ်တမ်းသည် calculator ထဲတွင်သာ သိမ်းထားမည်။</p><div class="field"><label>Customer အမည်ဖြင့် ရှာရန်</label><input id="depositHistorySearch" type="text" placeholder="Customer အမည်"></div><div id="customerDepositHistoryList"></div></div>
- <div class="card"><h2>Daily Gold Price History — နေ့စဉ် ၁၆ ပဲရည်စျေး</h2><p class="muted">၁၆ ပဲရည်စျေးကို ပြောင်းလဲတိုင်း နေ့စွဲနှင့်အတူ မှတ်တမ်းတင်မည်။ Deposit ရက်စွဲရွေးလျှင် မှတ်တမ်းရှိသောစျေးကို အလိုအလျောက်ဖြည့်မည်။</p><div id="dailyPriceHistoryList"></div></div>
- <div class="card"><button type="button" class="secondary-action" id="exportRecordsBtn">မှတ်တမ်းအားလုံး Backup (JSON) ထုတ်ရန်</button><p class="muted" id="recordsStatus"></p></div>
+ <div class="card"><h2>Calculation History — ယခင်တွက်ချက်မှုများ</h2><div id="calculationHistoryList"></div></div>
+ <div class="card"><h2>Customer Deposit History — Customer စရန်ငွေမှတ်တမ်း</h2><div class="field"><label>Customer အမည်ဖြင့် ရှာရန်</label><input id="depositHistorySearch" type="text" placeholder="Customer အမည်"></div><div id="customerDepositHistoryList"></div></div>
+ <div class="card"><h2>Daily Gold Price History — နေ့စဉ် ၁၆ ပဲရည်စျေး</h2><div id="dailyPriceHistoryList"></div></div>
+ <div class="card"><button type="button" class="secondary-action" id="exportRecordsBtn">မှတ်တမ်းအားလုံး Backup (JSON) ထုတ်ရန်</button><div id="recordsStatus" class="muted" role="status" aria-live="polite" style="margin-top:10px"></div></div>
 </section>
 
-<div class="note">အသုံးပြုထားသော အတိုင်းအတာများ: ၁ ကျပ်သား = ၁၆.၃၂၉၃၂၅ ဂရမ် · ၁ ကျပ်သား = ၁၆ ပဲ · ၁ ပဲ = ၈ ရွေး · ၁ ရွေး = ၁၀ ပွိုင့် · ၁ ကာရက် = ၀.၂ ဂရမ် · ၁ ကာရက် = ၁ ရွေး ၅ ပွိုင့် (လုပ်ငန်းသုံးပြောင်းလဲမှု). ရွှေစျေးနှုန်းကို ကိုယ်တိုင်ထည့်သွင်းပါ။</div>
+
 </main>
 <script>
 const KG=16.329325,$=id=>document.getElementById(id),num=id=>Math.max(0,Number($(id).value)||0),fmt=(x,n=5)=>Number(x).toLocaleString('en-US',{maximumFractionDigits:n}),money=x=>'ကျပ် '+Math.round(x).toLocaleString('en-US');
@@ -348,7 +350,7 @@ function calc(){
   $('profitGramOut').textContent='+ '+fmt(profit)+' g';$('profitMyanmarOut').textContent=weightParts(profit);
   $('finalGramOut').textContent=fmt(bill)+' g';$('finalMyanmarOut').textContent=weightParts(bill);
   $('levelOut').textContent=level+'P · '+method[0].toUpperCase()+method.slice(1);
-  $('methodFormula').textContent=method==='outside'?`Outside: 16 ÷ (16 + ${fmt(16-level,2)}) = ${fmt(r,6)}`:`Inside: ${fmt(level,2)} ÷ (${fmt(level,2)} + ${fmt(16-level,2)}) = ${fmt(r,6)}`;
+  const methodFormula=$('methodFormula'); if(methodFormula) methodFormula.textContent=method==='outside'?`Outside: 16 ÷ (16 + ${fmt(16-level,2)}) = ${fmt(r,6)}`:`Inside: ${fmt(level,2)} ÷ (${fmt(16-level,2)} + ${fmt(level,2)}) = ${fmt(r,6)}`;
   reverseCalc();
 }
 function reverseCalc(){let base=num('base'),lev=Number($('reverseLevel').value),price=num('target'),rate=base*ratio(lev,reverseMethod),g=rate?price/rate*KG:0;$('reverseG').textContent=fmt(g)+' g';$('reverseMyanmar').textContent=weightParts(g)}
@@ -367,6 +369,8 @@ $('rOutside').onclick=()=>{reverseMethod='outside';setMode(['rOutside','rInside'
 document.querySelectorAll('input').forEach(el=>el.addEventListener('input',()=>{calc();converter();diamondCalcIfReady();}));
 document.querySelectorAll('select').forEach(el=>el.addEventListener('change',()=>{calc();converter();}));
 document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();const target=b.dataset.tab;document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.tabpane').forEach(x=>x.classList.toggle('active',x.id===target));}));
+// Delegated tab activation also supports taps on nested text nodes and mobile browsers.
+document.querySelector('.tabs').addEventListener('click',e=>{const b=e.target.closest('button[data-tab]');if(!b)return;e.preventDefault();const target=b.dataset.tab;document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.tabpane').forEach(x=>x.classList.toggle('active',x.id===target));});
 function converter(){let g=num('fromGram'),ky=g/KG*1280,k=Math.floor(ky/1280),p=Math.floor((ky-k*1280)/80),y=Math.floor((ky-k*1280-p*80)/10),pt=ky-k*1280-p*80-y*10;$('cKyat').textContent=k;$('cPel').textContent=p;$('cYway').textContent=y;$('cPoint').textContent=Math.round(pt);$('toGram').textContent=fmt(mmToG(num('uk'),num('up'),num('uy'),num('upt')),6)+' g'}
 const GRAMS_PER_CARAT=(KG/1280)*15;$('caratConv').oninput=()=>{$('gramConv').value=fmt(num('caratConv')*GRAMS_PER_CARAT,6)};$('gramConv').oninput=()=>{$('caratConv').value=fmt(num('gramConv')/GRAMS_PER_CARAT,6)};
 $('reverseLevel').onchange=reverseCalc;$('target').oninput=reverseCalc;
@@ -566,7 +570,7 @@ function priceForDate(date){const x=readStore(DAILY_PRICE_KEY).find(x=>x.date===
 function snapshotCurrent(){const fields={};document.querySelectorAll('input[id],select[id]').forEach(el=>fields[el.id]=el.value);const stones=stoneRows().map(row=>{const values={};row.querySelectorAll('[data-field]').forEach(el=>values[el.dataset.field]=el.value);return {mode:row.dataset.mode||'ct',values}});const deposits=depositRows().map(row=>{const d={};row.querySelectorAll('[data-deposit]').forEach(el=>d[el.dataset.deposit]=el.value);return d});return {fields,stones,deposits,method,grossMode,profitMode,gemMode,savedAt:new Date().toISOString()}}
 function restoreSnapshot(s){if(!s)return;Object.entries(s.fields||{}).forEach(([id,value])=>{const el=$(id);if(el)el.value=value});if(s.method){method=s.method;setMode(['outside','inside'],method==='inside'?'inside':'outside')}if(s.grossMode){grossMode=s.grossMode;setMode(['grossMM','grossGramMode'],grossMode==='gram'?'grossGramMode':'grossMM');$('grossParts').classList.toggle('hidden',grossMode==='gram');$('grossGram').classList.toggle('hidden',grossMode!=='gram')}if(s.profitMode){profitMode=s.profitMode;setMode(['profitMMMode','profitGMode'],profitMode==='gram'?'profitGMode':'profitMMMode');$('profitMM').classList.toggle('hidden',profitMode==='gram');$('profitG').classList.toggle('hidden',profitMode!=='gram')}if(s.stones){$('stoneList').innerHTML='';stoneCounter=0;s.stones.forEach(item=>{addStoneRow();const row=stoneRows()[stoneRows().length-1];Object.entries(item.values||{}).forEach(([f,v])=>{const el=row.querySelector(`[data-field="${f}"]`);if(el)el.value=v});setStoneRowMode(row,item.mode||'ct')})}if(s.deposits){$('depositList').innerHTML='';depositCounter=0;s.deposits.forEach(d=>addDepositRow(d))}calc();converter();diamondCalc();updateDeposits();saveCurrentDraft()}
 function saveCalculation(){const name=($('handoffNote').value||'').trim();if(!name){$('handoffStatus').textContent='History သိမ်းရန် Customer / Item အမည်ကို အရင်ထည့်ပါ။';$('handoffNote').focus();return}const rows=readStore(CALC_HISTORY_KEY);rows.unshift({id:'CAL-'+Date.now(),name,snapshot:snapshotCurrent(),createdAt:new Date().toISOString()});writeStore(CALC_HISTORY_KEY,rows.slice(0,300));$('handoffStatus').textContent='Calculation History ထဲသို့ သိမ်းပြီးပါပြီ။';renderCalculationHistory()}
-function renderCalculationHistory(){const host=$('calculationHistoryList');if(!host)return;const rows=readStore(CALC_HISTORY_KEY);host.innerHTML='';if(!rows.length){host.innerHTML='<div class="record-empty">သိမ်းထားသော calculation မရှိသေးပါ။</div>';return}rows.forEach(item=>{const el=document.createElement('div');el.className='record-item';el.innerHTML='<div><strong></strong><small></small></div><div class="record-actions"><button data-load>ပြန်ဖွင့်ရန်</button><button data-delete>ဖျက်ရန်</button></div>';el.querySelector('strong').textContent=item.name;el.querySelector('small').textContent=new Date(item.createdAt).toLocaleString();el.querySelector('[data-load]').onclick=()=>{restoreSnapshot(item.snapshot);$('handoffNote').value=item.name;document.querySelector('[data-tab="calc"]').click();$('handoffStatus').textContent='History မှ calculation ကို ပြန်ဖွင့်ပြီးပါပြီ။'};el.querySelector('[data-delete]').onclick=()=>{if(confirm('ဤ calculation history ကို ဖျက်မလား?')){writeStore(CALC_HISTORY_KEY,readStore(CALC_HISTORY_KEY).filter(x=>x.id!==item.id));renderCalculationHistory()}};host.appendChild(el)})}
+function renderCalculationHistory(){const host=$('calculationHistoryList');if(!host)return;const rows=readStore(CALC_HISTORY_KEY);host.innerHTML='';if(!rows.length){host.innerHTML='<div class="record-empty">သိမ်းထားသော calculation မရှိသေးပါ။</div>';return}rows.forEach(item=>{const el=document.createElement('div');el.className='record-item';el.innerHTML='<div><strong></strong><small></small></div><div class="record-actions"><button type="button" data-load>ပြန်ဖွင့်ရန်</button><button type="button" data-delete>ဖျက်ရန်</button></div>';el.querySelector('strong').textContent=item.name;el.querySelector('small').textContent=new Date(item.createdAt).toLocaleString();el.querySelector('[data-load]').onclick=()=>{restoreSnapshot(item.snapshot);$('handoffNote').value=item.name;document.querySelector('[data-tab="calc"]').click();$('handoffStatus').textContent='History မှ calculation ကို ပြန်ဖွင့်ပြီးပါပြီ။'};el.querySelector('[data-delete]').onclick=()=>{if(confirm('ဤ calculation history ကို ဖျက်မလား?')){writeStore(CALC_HISTORY_KEY,readStore(CALC_HISTORY_KEY).filter(x=>x.id!==item.id));renderCalculationHistory()}};host.appendChild(el)})}
 function saveCustomerDeposits(){const customer=($('depositCustomerName').value||'').trim();if(!customer){$('recordsStatus').textContent='Deposit History သိမ်းရန် Customer အမည်ထည့်ပါ။';$('depositCustomerName').focus();return}const deposits=depositRows().map(depositRowData).filter(d=>d.amount>0&&d.price>0);if(!deposits.length){$('recordsStatus').textContent='ငွေပမာဏနှင့် စျေးနှုန်းပါသော deposit တစ်ခုထည့်ပါ။';return}const rows=readStore(CUSTOMER_DEPOSIT_KEY);let added=0;deposits.forEach(d=>{const duplicate=rows.some(x=>x.customer.toLowerCase()===customer.toLowerCase()&&x.date===d.date&&Number(x.amount)===d.amount&&Number(x.historical16PPrice)===d.price);if(!duplicate){rows.unshift({id:'DEP-'+Date.now()+'-'+Math.random().toString(36).slice(2,7),customer,date:d.date,amount:d.amount,historical16PPrice:d.price,purity:d.level,method:d.purityMethod,points:d.points,grams:d.grams,createdAt:new Date().toISOString()});added++}});writeStore(CUSTOMER_DEPOSIT_KEY,rows);$('recordsStatus').textContent=added?`${customer} အတွက် deposit ${added} ခု သိမ်းပြီးပါပြီ။`:'ဒီ deposit မှတ်တမ်းများကို သိမ်းပြီးသားဖြစ်သည်။ ထပ်မသိမ်းထားပါ။';renderCustomerDeposits()}
 function renderCustomerDeposits(){const host=$('customerDepositHistoryList');if(!host)return;const q=($('depositHistorySearch').value||'').trim().toLowerCase(),rows=readStore(CUSTOMER_DEPOSIT_KEY).filter(x=>!q||x.customer.toLowerCase().includes(q));host.innerHTML='';if(!rows.length){host.innerHTML='<div class="record-empty">ကိုက်ညီသော deposit history မရှိပါ။</div>';return}rows.forEach(d=>{const el=document.createElement('div');el.className='record-item';el.innerHTML='<div><strong></strong><small></small></div><div class="record-actions"><span class="deposit-weight-label"></span><button type="button" data-add-deposit>လက်ရှိတွက်ချက်မှုထဲ ထည့်ရန်</button></div>';el.querySelector('strong').textContent=d.customer+' · '+d.date;el.querySelector('small').textContent='Deposit: '+money(d.amount)+' · Historical 16P: '+money(d.historical16PPrice);el.querySelector('.deposit-weight-label').textContent=pointsToParts(d.points)+' · '+fmt(d.grams,6)+' g';el.querySelector('[data-add-deposit]').onclick=()=>{addDepositRow({date:d.date,amount:d.amount,price:d.historical16PPrice});document.querySelector('[data-tab="calc"]').click();$('handoffStatus').textContent='Customer Deposit History မှ deposit ကို လက်ရှိတွက်ချက်မှုထဲ ထည့်ပြီးပါပြီ။ ပဲရည်အလိုက် ပြန်တွက်ထားသည်။'};host.appendChild(el)})}
 function renderDailyPrices(){const host=$('dailyPriceHistoryList');if(!host)return;const rows=readStore(DAILY_PRICE_KEY);host.innerHTML='';if(!rows.length){host.innerHTML='<div class="record-empty">စျေးမှတ်တမ်း မရှိသေးပါ။</div>';return}rows.forEach(x=>{const el=document.createElement('div');el.className='record-item';el.innerHTML='<div><strong></strong><small>16 ပဲရည် / 24K</small></div><div></div>';el.querySelector('strong').textContent=x.date;el.querySelector('div:last-child').textContent=money(x.price);host.appendChild(el)})}
